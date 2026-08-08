@@ -1,68 +1,56 @@
-\# Online Voting System
+# ***Online Voting System***
 
 
 
-\## Overview
+### Overview:
+
+The Online Voting System is a web-based application developed to provide a secure and user-friendly platform for conducting elections digitally. The project was developed and tested using NetBeans IDE and Apache Tomcat.The system provides a digital platform for managing the basic election process. 
+
+Voters can register, complete OTP-based verification, log in, view available candidates, cast their vote, check their voting status, and view election results.
+
+The system also includes an Administrator Module for managing voters, candidates, voting requests, election rules, statistics, and results.
+
+The OTP verification implemented in this project is simulated for academic purposes and does not use an external OTP API.
 
 
 
-The Online Voting System is a web-based application developed to provide a secure and user-friendly platform for conducting elections digitally.
+### Features:
 
 
 
-The system allows voters to register, verify their identity using OTP, log in, view candidates, cast their votes, check their voting status, and view election results.
+\- Voter Registration: Allows eligible users to create an account.
+
+\- OTP Verification: Provides simulated email-based OTP verification.
+
+\- User Login: Authenticates registered voters.
+
+\- Candidate Management: Admin can add and manage candidates.
+
+\- Online Voting: Allows registered voters to cast their vote.
+
+\- One-Time Voting: Prevents a voter from voting multiple times.
+
+\- Voting Status: Allows voters to check their voting status.
+
+\- Election Results: Displays voting results.
+
+\- Admin Dashboard: Provides administrative control over the system.
+
+\- Voter Management: Admin can view and manage voters.
+
+\- Password Recovery: Supports forgot and reset password functionality.
+
+\- Voting Rules: Provides election rules and eligibility information.
+
+\- Statistics: Displays voting-related statistics.
 
 
 
-An administrator module is also provided to manage voters, candidates, requests, election rules, statistics, and results.
 
 
-
-\---
-
+### Project Structure:
 
 
-\## Features
-
-
-
-\- \*\*Voter Registration:\*\* Allows eligible users to create an account.
-
-\- \*\*OTP Verification:\*\* Provides email-based OTP verification.
-
-\- \*\*User Login:\*\* Authenticates registered voters.
-
-\- \*\*Candidate Management:\*\* Admin can add and manage candidates.
-
-\- \*\*Online Voting:\*\* Allows registered voters to cast their vote.
-
-\- \*\*One-Time Voting:\*\* Prevents a voter from voting multiple times.
-
-\- \*\*Voting Status:\*\* Allows voters to check their voting status.
-
-\- \*\*Election Results:\*\* Displays voting results.
-
-\- \*\*Admin Dashboard:\*\* Provides administrative control over the system.
-
-\- \*\*Voter Management:\*\* Admin can view and manage voters.
-
-\- \*\*Password Recovery:\*\* Supports forgot and reset password functionality.
-
-\- \*\*Voting Rules:\*\* Provides election rules and eligibility information.
-
-\- \*\*Statistics:\*\* Displays voting-related statistics.
-
-
-
-\---
-
-
-
-\## Project Structure
-
-
-
-```text
 
 Online-Voting-System/
 
@@ -162,43 +150,105 @@ Online-Voting-System/
 
 &#x20;   │   ├── results.png
 
-&#x20;   │   ├── voter.png
+&#x20;   │   ├── slide1.png
 
-&#x20;   │   └── ...
+&#x20;   │   ├── slide2.png
+
+&#x20;   │   ├── slide3.png
+
+&#x20;   │   ├── slide4.png
+
+&#x20;   │   ├── slide5.png
+
+&#x20;   │   ├── vote.png
+
+&#x20;   │   └── voter.png
 
 &#x20;   │
 
-&#x20;   ├── index.html
+&#x20;   ├── about.html
+
+&#x20;   ├── admin-dashboard.jsp
+
+&#x20;   ├── admin-rules.html
+
+&#x20;   ├── admin-rules.jsp
+
+&#x20;   ├── adminpanel.html
+
+&#x20;   ├── adminrequests.html
+
+&#x20;   ├── already-voted.html
+
+&#x20;   ├── candidate.html
+
+&#x20;   ├── centers.html
+
+&#x20;   ├── contact.html
+
+&#x20;   ├── eligibility.html
+
+&#x20;   ├── faq.html
+
+&#x20;   ├── forgot-password.html
+
+&#x20;   ├── help.html
 
 &#x20;   ├── home.html
 
+&#x20;   ├── index.html
+
 &#x20;   ├── login.html
+
+&#x20;   ├── logout-confirm.html
+
+&#x20;   ├── logout.html
+
+&#x20;   ├── manage-candidates.jsp
+
+&#x20;   ├── morefaq.html
+
+&#x20;   ├── profile.jsp
 
 &#x20;   ├── register.html
 
-&#x20;   ├── vote.html
+&#x20;   ├── registersuccess.html
 
-&#x20;   ├── vote.jsp
+&#x20;   ├── requestchange.html
+
+&#x20;   ├── requests.jsp
+
+&#x20;   ├── requestsuccess.html
+
+&#x20;   ├── reset-password.html
 
 &#x20;   ├── result.html
 
 &#x20;   ├── results.jsp
 
-&#x20;   ├── profile.jsp
+&#x20;   ├── rules.html
 
-&#x20;   ├── voter-dashboard.jsp
+&#x20;   ├── statistics.jsp
 
-&#x20;   ├── admin-dashboard.jsp
+&#x20;   ├── status.jsp
 
-&#x20;   └── ...
+&#x20;   ├── verify-otp.html
+
+&#x20;   ├── view-candidates.jsp
+
+&#x20;   ├── view-voters.jsp
+
+&#x20;   ├── vote-success.html
+
+&#x20;   ├── vote.html
+
+&#x20;   ├── vote.jsp
+
+&#x20;   └── voter-dashboard.jsp
 
 
 
-
-
-
-
-Technologies Used
+### Technologies Used:
 
 Java – Backend programming
 
@@ -222,57 +272,45 @@ Git \& GitHub – Version control
 
 
 
-System Modules
+### System Modules:
 
-1\. Voter Module
+##### 
 
-
+###### 1\. Voter Module:
 
 The voter module provides:
 
 
 
-Registration
+* Registration
+* OTP verification
+* Login
+* Profile management
+* Candidate viewing
+* Vote casting
+* Voting status
+* Election results
+* Password recovery
 
-OTP verification
+###### 
 
-Login
-
-Profile management
-
-Candidate viewing
-
-Vote casting
-
-Voting status
-
-Election results
-
-Password recovery
-
-2\. Administrator Module
-
-
+###### 2\. Administrator Module:
 
 The administrator module provides:
 
 
 
-Admin login
-
-Candidate management
-
-Voter management
-
-Request management
-
-Election rules management
-
-Voting statistics
-
-Result management
+* Admin login
+* Candidate management
+* Voter management
+* Request management
+* Election rules management
+* Voting statistics
+* Result management
 
 
+
+#### Application Flow:
 
 
 
@@ -320,6 +358,10 @@ Voter Dashboard
 
 
 
+#### Admin Flow:
+
+
+
 Admin
 
 &#x20; │
@@ -350,27 +392,22 @@ Admin Dashboard
 
 
 
-Database
-
-
+#### Database:
 
 The application uses MySQL to store and manage:
 
 
 
-Voter information
+* Voter information
+* Candidate information
+* Voting records
+* Login details
+* OTP information
+* Requests
+* Election data
+* Results
 
-Candidate information
 
-Voting records
 
-Login details
 
-OTP information
-
-Requests
-
-Election data
-
-Results
 
