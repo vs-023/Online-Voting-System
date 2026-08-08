@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f4f4f4;
+        }
+
+        /* Navbar */
+
+        .navbar{
+            background:#1e3c72;
+            padding:20px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .navbar h1{
+            color:white;
+            font-size:36px;
+        }
+
+        .navbar a{
+            color:white;
+            text-decoration:none;
+            font-size:18px;
+            margin-left:25px;
+        }
+
+        .navbar a:hover{
+            color:#ffd700;
+        }
+
+        /* Banner */
+
+        .banner{
+            height:300px;
+            background:
+            linear-gradient(rgba(0,0,0,0.6),
+            rgba(0,0,0,0.6)),
+            url("img/adminbg.jpg");
+
+            background-size:cover;
+            background-position:center;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            color:white;
+            text-align:center;
+        }
+
+        .banner h2{
+            font-size:55px;
+            margin-bottom:15px;
+        }
+
+        .banner p{
+            font-size:24px;
+        }
+
+        /* Dashboard Cards */
+
+        .container{
+            width:90%;
+            margin:50px auto;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:30px;
+        }
+
+        .card{
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0px 0px 12px rgba(0,0,0,0.2);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+        }
+
+        .card h3{
+            color:#1e3c72;
+            margin-bottom:18px;
+            font-size:28px;
+        }
+
+        .card p{
+            font-size:18px;
+            margin-bottom:25px;
+            color:#444;
+        }
+
+        .btn{
+            text-decoration:none;
+            background:#1e3c72;
+            color:white;
+            padding:12px 24px;
+            border-radius:8px;
+            font-size:18px;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#16325c;
+        }
+
+        footer{
+            background:#1e3c72;
+            color:white;
+            text-align:center;
+            padding:18px;
+            margin-top:40px;
+            font-size:18px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h1>ADMIN PANEL</h1>
+
+        <div>
+
+            <a href="admin-dashboard.jsp">Dashboard</a>
+            <a href="candidate.html">Candidates</a>
+            <a href="ResultServlet">Results</a>
+            <a href="AdminRequestServlet">Requests</a>
+            <a href="LogoutServlet">Logout</a>
+
+        </div>
+
+    </div>
+
+    <!-- Banner -->
+
+    <div class="banner">
+
+        <div>
+
+            <h2>Election Management</h2>
+            <p>Secure Admin Control Dashboard</p>
+
+        </div>
+
+    </div>
+
+    <!-- Cards -->
+
+    <div class="container">
+
+        <div class="card">
+            <h3>Manage Candidates</h3>
+            <p>Add, update and manage election candidates.</p>
+            <a href="candidate.html" class="btn">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>View Election Results</h3>
+            <p>Monitor live voting results and vote counts.</p>
+            <a href="ResultServlet" class="btn">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Correction Requests</h3>
+            <p>Approve or reject voter correction requests.</p>
+            <a href="AdminRequestServlet" class="btn">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Manage Voters</h3>
+            <p>View voter details and voting status.</p>
+            <a href="#" class="btn">Open</a>
+        </div>
+
+    </div>
+
+    <footer>
+        © 2026 Online Voting System | Admin Dashboard
+    </footer>
+
+</body>
+</html>

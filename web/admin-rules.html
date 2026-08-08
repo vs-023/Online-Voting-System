@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Rules - Online Voting System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            background:
+            linear-gradient(rgba(0,0,0,0.65),
+            rgba(0,0,0,0.65)),
+            url("img/adminrules.jpg");
+
+            background-size:cover;
+            background-position:center;
+
+            min-height:100vh;
+        }
+
+        /* NAVBAR */
+
+        nav{
+
+            background:#1e3c72;
+
+            padding:18px 40px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            color:white;
+        }
+
+        nav h2{
+
+            font-size:34px;
+        }
+
+        nav ul{
+
+            list-style:none;
+
+            display:flex;
+        }
+
+        nav ul li{
+
+            margin-left:25px;
+        }
+
+        nav ul li a{
+
+            color:white;
+
+            text-decoration:none;
+
+            font-size:18px;
+
+            transition:0.3s;
+        }
+
+        nav ul li a:hover{
+
+            color:#ffd700;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container{
+
+            width:88%;
+
+            max-width:1200px;
+
+            margin:50px auto;
+
+            background:rgba(255,255,255,0.96);
+
+            padding:45px;
+
+            border-radius:15px;
+
+            box-shadow:0px 0px 20px rgba(0,0,0,0.35);
+        }
+
+        .container h1{
+
+            text-align:center;
+
+            color:#1e3c72;
+
+            margin-bottom:20px;
+
+            font-size:48px;
+        }
+
+        .intro{
+
+            text-align:center;
+
+            font-size:20px;
+
+            color:#444;
+
+            margin-bottom:40px;
+
+            line-height:1.8;
+        }
+
+        /* RULE GRID */
+
+        .rules-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(320px,1fr));
+
+            gap:30px;
+        }
+
+        .rule-box{
+
+            background:#f4f7ff;
+
+            padding:30px;
+
+            border-radius:12px;
+
+            border-left:6px solid #1e3c72;
+
+            transition:0.3s;
+        }
+
+        .rule-box:hover{
+
+            transform:translateY(-8px);
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.2);
+        }
+
+        .rule-box h3{
+
+            color:#1e3c72;
+
+            margin-bottom:15px;
+
+            font-size:26px;
+        }
+
+        .rule-box p{
+
+            color:#444;
+
+            line-height:1.8;
+
+            font-size:17px;
+        }
+
+        /* NOTICE */
+
+        .notice{
+
+            margin-top:45px;
+
+            background:#fff3cd;
+
+            border-left:7px solid #ffcc00;
+
+            padding:25px;
+
+            border-radius:10px;
+
+            color:#856404;
+
+            font-size:18px;
+
+            line-height:1.8;
+        }
+
+        /* BUTTONS */
+
+        .buttons{
+
+            text-align:center;
+
+            margin-top:40px;
+        }
+
+        .btn{
+
+            display:inline-block;
+
+            text-decoration:none;
+
+            background:#1e3c72;
+
+            color:white;
+
+            padding:14px 28px;
+
+            border-radius:8px;
+
+            font-size:18px;
+
+            margin:10px;
+
+            transition:0.3s;
+        }
+
+        .btn:hover{
+
+            background:#16325c;
+        }
+
+        /* FOOTER */
+
+        footer{
+
+            background:#1e3c72;
+
+            color:white;
+
+            text-align:center;
+
+            padding:20px;
+
+            margin-top:50px;
+
+            font-size:18px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px){
+
+            nav{
+
+                flex-direction:column;
+
+                gap:15px;
+            }
+
+            nav ul{
+
+                flex-wrap:wrap;
+
+                justify-content:center;
+            }
+
+            .container{
+
+                width:95%;
+            }
+
+            .container h1{
+
+                font-size:36px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h2>ADMIN PANEL</h2>
+
+    <ul>
+
+        <li><a href="admin-dashboard.jsp">Dashboard</a></li>
+
+        <li><a href="results.jsp">Results</a></li>
+
+        <li><a href="manage-candidates.jsp">Candidates</a></li>
+
+        <li><a href="LogoutServlet">Logout</a></li>
+
+    </ul>
+
+</nav>
+
+<!-- MAIN CONTENT -->
+
+<div class="container">
+
+    <h1>Election Administration Rules</h1>
+
+    <p class="intro">
+
+        These rules and guidelines must be followed by all administrators
+        to ensure secure, transparent and fair election management
+        within the Online Voting System.
+
+    </p>
+
+    <!-- RULES -->
+
+    <div class="rules-grid">
+
+        <div class="rule-box">
+
+            <h3>1. Secure Admin Access</h3>
+
+            <p>
+
+                Admin credentials must remain confidential.
+                Unauthorized sharing of login details is strictly prohibited.
+
+            </p>
+
+        </div>
+
+        <div class="rule-box">
+
+            <h3>2. Candidate Verification</h3>
+
+            <p>
+
+                All candidate information must be verified properly
+                before approval into the election system.
+
+            </p>
+
+        </div>
+
+        <div class="rule-box">
+
+            <h3>3. Fair Election Management</h3>
+
+            <p>
+
+                Administrators must maintain neutrality and fairness
+                throughout the voting and result declaration process.
+
+            </p>
+
+        </div>
+
+        <div class="rule-box">
+
+            <h3>4. Voter Data Protection</h3>
+
+            <p>
+
+                Voter personal information must remain protected
+                and should never be disclosed publicly.
+
+            </p>
+
+        </div>
+
+        <div class="rule-box">
+
+            <h3>5. Request Handling</h3>
+
+            <p>
+
+                Correction requests from voters should be reviewed carefully
+                and processed only after proper verification.
+
+            </p>
+
+        </div>
+
+        <div class="rule-box">
+
+            <h3>6. Election Monitoring</h3>
+
+            <p>
+
+                Admins are responsible for monitoring voting activities
+                and identifying suspicious or duplicate voting attempts.
+
+            </p>
+
+        </div>
+
+        <div class="rule-box">
+
+            <h3>7. Result Transparency</h3>
+
+            <p>
+
+                Election results must be generated accurately
+                without manipulation or unauthorized modifications.
+
+            </p>
+
+        </div>
+
+        <div class="rule-box">
+
+            <h3>8. System Security</h3>
+
+            <p>
+
+                Maintain database security, backup records regularly,
+                and prevent unauthorized system access.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- NOTICE -->
+
+    <div class="notice">
+
+        <b>Important Notice:</b>
+
+        Any misuse of administrator privileges, unauthorized data modification,
+        or violation of election integrity rules may result in permanent
+        removal of admin access and legal action.
+
+    </div>
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <a href="admin-dashboard.jsp" class="btn">
+
+            Back To Dashboard
+
+        </a>
+
+        <a href="results.jsp" class="btn">
+
+            View Results
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 Online Voting System | Admin Rules & Regulations
+
+</footer>
+
+</body>
+
+</html>

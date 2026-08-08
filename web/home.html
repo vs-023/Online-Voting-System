@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Home - Online Voting System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#f4f4f4;
+            line-height:1.6;
+        }
+
+        /* Navigation Bar */
+
+        nav{
+
+            background:#1e3c72;
+            color:white;
+
+            padding:18px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            position:sticky;
+            top:0;
+
+            z-index:1000;
+        }
+
+        nav h2{
+
+            margin-left:20px;
+
+            font-size:38px;
+        }
+
+        nav ul{
+
+            list-style:none;
+
+            display:flex;
+
+            margin-right:20px;
+        }
+
+        nav ul li{
+            margin-left:25px;
+        }
+
+        nav ul li a{
+
+            color:white;
+
+            text-decoration:none;
+
+            font-size:22px;
+
+            transition:0.3s;
+        }
+
+        nav ul li a:hover{
+
+            color:#ffd700;
+        }
+
+        /* Slideshow Section */
+
+        .slideshow-container{
+
+            position:relative;
+
+            width:100%;
+            height:550px;
+
+            overflow:hidden;
+        }
+
+        /* Slides */
+
+        .slides{
+
+            position:absolute;
+
+            top:0;
+            left:0;
+
+            width:100%;
+            height:100%;
+
+            object-fit:cover;
+
+            opacity:0;
+
+            animation:slideShow 12s infinite;
+        }
+
+        /* Slide Timing */
+
+        .slides:nth-child(1){
+            animation-delay:0s;
+        }
+
+        .slides:nth-child(2){
+            animation-delay:4s;
+        }
+
+        .slides:nth-child(3){
+            animation-delay:8s;
+        }
+
+        /* Animation */
+
+        @keyframes slideShow{
+
+            0%{
+                opacity:0;
+            }
+
+            10%{
+                opacity:1;
+            }
+
+            30%{
+                opacity:1;
+            }
+
+            40%{
+                opacity:0;
+            }
+
+            100%{
+                opacity:0;
+            }
+
+        }
+
+        /* Dark Overlay */
+
+        .overlay{
+
+            position:absolute;
+
+            top:0;
+            left:0;
+
+            width:100%;
+            height:100%;
+
+            background:rgba(0,0,0,0.5);
+
+            z-index:1;
+        }
+
+        /* Banner Text */
+
+        .banner-text{
+
+            position:absolute;
+
+            top:50%;
+            left:50%;
+
+            transform:translate(-50%,-50%);
+
+            text-align:center;
+
+            color:white;
+
+            z-index:2;
+
+            width:100%;
+        }
+
+        .banner-text h1{
+
+            font-size:75px;
+
+            margin-bottom:20px;
+
+            text-shadow:3px 3px 10px black;
+        }
+
+        .banner-text p{
+
+            font-size:32px;
+
+            text-shadow:2px 2px 8px black;
+        }
+
+        /* Sections */
+
+        .section{
+
+            width:85%;
+
+            margin:60px auto;
+
+            background:white;
+
+            padding:45px;
+
+            border-radius:12px;
+
+            box-shadow:0px 0px 12px rgba(0,0,0,0.15);
+        }
+
+        .section h2{
+
+            text-align:center;
+
+            color:#1e3c72;
+
+            margin-bottom:30px;
+
+            font-size:42px;
+        }
+
+        .section p{
+
+            font-size:22px;
+
+            text-align:justify;
+
+            margin-bottom:20px;
+        }
+
+        /* Objectives */
+
+        .objectives{
+
+            margin-top:25px;
+        }
+
+        .objectives li{
+
+            font-size:22px;
+
+            margin-bottom:15px;
+
+            margin-left:30px;
+        }
+
+        /* Quick Access Buttons */
+
+        .features{
+
+            width:90%;
+
+            margin:60px auto;
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(250px,1fr));
+
+            gap:30px;
+        }
+
+        .feature-box{
+
+            background:white;
+
+            padding:35px;
+
+            border-radius:12px;
+
+            text-align:center;
+
+            box-shadow:0px 0px 12px rgba(0,0,0,0.2);
+
+            transition:0.3s;
+        }
+
+        .feature-box:hover{
+
+            transform:translateY(-10px);
+        }
+
+        .feature-box h3{
+
+            color:#1e3c72;
+
+            margin-bottom:15px;
+
+            font-size:28px;
+        }
+
+        .feature-box p{
+
+            font-size:18px;
+
+            margin-bottom:25px;
+        }
+
+        .btn{
+
+            text-decoration:none;
+
+            background:#1e3c72;
+
+            color:white;
+
+            padding:12px 24px;
+
+            border-radius:6px;
+
+            font-size:18px;
+
+            transition:0.3s;
+        }
+
+        .btn:hover{
+
+            background:#16325c;
+        }
+
+        /* RESULT SECTION */
+
+        .results-section{
+
+            width:90%;
+
+            margin:60px auto;
+
+            background:white;
+
+            padding:45px;
+
+            border-radius:12px;
+
+            box-shadow:0px 0px 12px rgba(0,0,0,0.15);
+
+            text-align:center;
+        }
+
+        .results-section h2{
+
+            color:#1e3c72;
+
+            font-size:42px;
+
+            margin-bottom:20px;
+        }
+
+        .results-section p{
+
+            font-size:22px;
+
+            margin-bottom:30px;
+        }
+
+        /* Awareness Quote */
+
+        .quote{
+
+            background:#1e3c72;
+
+            color:white;
+
+            text-align:center;
+
+            padding:60px 30px;
+
+            margin-top:50px;
+        }
+
+        .quote h1{
+
+            font-size:55px;
+
+            margin-bottom:20px;
+        }
+
+        .quote p{
+
+            font-size:28px;
+        }
+
+        /* Footer */
+
+        footer{
+
+            background:#1e3c72;
+
+            color:white;
+
+            text-align:center;
+
+            padding:20px;
+
+            margin-top:50px;
+
+            font-size:18px;
+        }
+
+        /* Responsive */
+
+        @media(max-width:900px){
+
+            nav{
+
+                flex-direction:column;
+            }
+
+            nav ul{
+
+                flex-wrap:wrap;
+
+                justify-content:center;
+            }
+
+            .banner-text h1{
+
+                font-size:48px;
+            }
+
+            .banner-text p{
+
+                font-size:24px;
+            }
+
+            .section h2,
+            .results-section h2{
+
+                font-size:34px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <nav>
+
+        <h2>ONLINE VOTING SYSTEM</h2>
+
+        <ul>
+
+            <li><a href="home.html">Home</a></li>
+
+            <li><a href="login.html">Login</a></li>
+
+            <li><a href="register.html">Register</a></li>
+
+            <li><a href="results.jsp">Results</a></li>
+
+            <li><a href="about.html">About</a></li>
+
+            <li><a href="help.html">Help</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- Slideshow Section -->
+
+    <div class="slideshow-container">
+        
+        <img class="slides" src="img/slide4.png">
+        
+        <img class="slides" src="img/slide5.png">
+
+        <img class="slides" src="img/slide1.png">
+
+        <img class="slides" src="img/slide2.png">
+
+        <img class="slides" src="img/slide3.png">
+
+        <div class="overlay"></div>
+
+        <div class="banner-text">
+
+            <h1>Welcome To Online Voting System</h1>
+
+            <p>
+                Empowering Democracy Through Secure Digital Elections
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Objectives Section -->
+
+    <div class="section">
+
+        <h2>Objectives of Online Voting System</h2>
+
+        <p>
+
+            The Online Voting System is designed to provide a secure,
+            transparent and efficient digital platform for conducting elections.
+            The system enables eligible voters to cast their votes electronically
+            from anywhere while maintaining privacy, accuracy and fairness
+            throughout the election process.
+
+        </p>
+
+        <ul class="objectives">
+
+            <li>Provide secure digital voting facilities</li>
+
+            <li>Reduce manual errors and paperwork</li>
+
+            <li>Ensure transparency and fairness in elections</li>
+
+            <li>Allow faster vote counting and result generation</li>
+
+            <li>Encourage maximum voter participation</li>
+
+            <li>Improve accessibility and convenience for voters</li>
+
+        </ul>
+
+    </div>
+
+    <!-- Online Voting Section -->
+
+    <div class="section">
+
+        <h2>Why Choose Online Voting?</h2>
+
+        <p>
+
+            Traditional voting methods often require long queues,
+            manual verification and extensive paperwork. The Online Voting
+            System simplifies this process by providing a fast and user-friendly
+            digital voting environment that saves both time and resources.
+
+        </p>
+
+        <p>
+
+            Through secure authentication and protected vote storage,
+            the system ensures that every vote is counted accurately while
+            maintaining voter confidentiality. Online voting also increases
+            accessibility for citizens by allowing participation from remote
+            locations in a secure and reliable manner.
+
+        </p>
+
+    </div>
+
+    <!-- Quick Access Buttons -->
+
+    <div class="features">
+
+        <div class="feature-box">
+
+            <h3>FAQ</h3>
+
+            <p>
+                Frequently asked questions and answers about voting.
+            </p>
+
+            <a href="faq.html" class="btn">Open</a>
+
+        </div>
+
+        <div class="feature-box">
+
+            <h3>Eligibility</h3>
+
+            <p>
+                Check voter eligibility criteria and requirements.
+            </p>
+
+            <a href="eligibility.html" class="btn">Open</a>
+
+        </div>
+
+        <div class="feature-box">
+
+            <h3>Election Results</h3>
+
+            <p>
+                View live election results and vote statistics.
+            </p>
+
+            <a href="results.jsp" class="btn">View Results</a>
+
+        </div>
+
+        <div class="feature-box">
+
+            <h3>Contact</h3>
+
+            <p>
+                Contact election support and administration.
+            </p>
+
+            <a href="contact.html" class="btn">Open</a>
+
+        </div>
+
+    </div>
+
+    <!-- RESULT SECTION -->
+
+    <div class="results-section">
+
+        <h2>Live Election Results</h2>
+
+        <p>
+
+            Monitor transparent and secure digital election results
+            with real-time vote counting and candidate performance.
+
+        </p>
+
+        <a href="results.jsp" class="btn">
+
+            Open Result Portal
+
+        </a>
+
+    </div>
+
+    <!-- Awareness Quote -->
+
+    <div class="quote">
+
+        <h1>Your Vote Builds The Nation</h1>
+
+        <p>
+
+            Every citizen has the power to shape the future through responsible voting.
+
+        </p>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+
+        © 2026 Online Voting System | Secure Voting Portal | VVT Squad
+
+    </footer>
+
+</body>
+</html>

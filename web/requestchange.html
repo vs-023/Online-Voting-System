@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Request Correction</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            background:
+            linear-gradient(rgba(0,0,0,0.6),
+            rgba(0,0,0,0.6)),
+            url("img/slide2.png");
+
+            background-size:cover;
+            background-position:center;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            padding:40px;
+        }
+
+        .container{
+
+            width:650px;
+
+            background:rgba(255,255,255,0.95);
+
+            padding:40px;
+
+            border-radius:15px;
+
+            box-shadow:0px 0px 20px rgba(0,0,0,0.4);
+        }
+
+        h2{
+
+            text-align:center;
+
+            color:#1e3c72;
+
+            margin-bottom:10px;
+
+            font-size:36px;
+        }
+
+        .subtitle{
+
+            text-align:center;
+
+            color:#555;
+
+            margin-bottom:30px;
+
+            font-size:17px;
+        }
+
+        label{
+
+            font-size:17px;
+
+            color:#333;
+
+            font-weight:bold;
+        }
+
+        input,
+        textarea{
+
+            width:100%;
+
+            padding:14px;
+
+            margin-top:8px;
+            margin-bottom:22px;
+
+            border:1px solid #ccc;
+
+            border-radius:8px;
+
+            font-size:16px;
+        }
+
+        input:focus,
+        textarea:focus{
+
+            outline:none;
+
+            border:1px solid #1e3c72;
+
+            box-shadow:0px 0px 8px rgba(30,60,114,0.3);
+        }
+
+        textarea{
+
+            resize:none;
+
+            height:140px;
+        }
+
+        .btn{
+
+            width:100%;
+
+            padding:15px;
+
+            background:#1e3c72;
+
+            color:white;
+
+            border:none;
+
+            border-radius:8px;
+
+            font-size:20px;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .btn:hover{
+
+            background:#16325c;
+        }
+
+        .bottom-links{
+
+            margin-top:25px;
+
+            display:flex;
+
+            justify-content:space-between;
+        }
+
+        .bottom-links a{
+
+            text-decoration:none;
+
+            background:#f1f1f1;
+
+            color:#1e3c72;
+
+            padding:12px 20px;
+
+            border-radius:6px;
+
+            font-weight:bold;
+
+            transition:0.3s;
+        }
+
+        .bottom-links a:hover{
+
+            background:#1e3c72;
+
+            color:white;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Request Details Correction</h2>
+
+    <div class="subtitle">
+
+        Submit correction requests for voter details.
+        Admin will verify and update your information.
+
+    </div>
+
+    <form action="RequestServlet" method="post">
+
+        <label>Full Name</label>
+
+        <input type="text"
+               name="name"
+               placeholder="Enter Your Full Name"
+               required>
+
+        <label>Email Address</label>
+
+        <input type="email"
+               name="email"
+               placeholder="Enter Your Email"
+               required>
+
+        <label>Correction Request</label>
+
+        <textarea name="request"
+                  placeholder="Example:
+Wrong address,
+incorrect mobile number,
+name spelling mistake etc."
+                  required></textarea>
+
+        <button type="submit" class="btn">
+
+            Submit Request
+
+        </button>
+
+    </form>
+
+    <div class="bottom-links">
+
+        <a href="voter-dashboard.jsp">
+
+            Back To Dashboard
+
+        </a>
+
+        <a href="LogoutServlet">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

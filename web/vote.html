@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Cast Vote</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            background:
+            linear-gradient(rgba(0,0,0,0.7),
+            rgba(0,0,0,0.7)),
+            url("img/votingbg.jpg");
+
+            background-size:cover;
+            background-position:center;
+        }
+
+        .top-bar{
+
+            position:absolute;
+
+            top:20px;
+            right:30px;
+        }
+
+        .logout-btn{
+
+            background:#cc0000;
+
+            color:white;
+
+            padding:12px 22px;
+
+            text-decoration:none;
+
+            border-radius:8px;
+
+            font-size:18px;
+
+            font-weight:bold;
+        }
+
+        .logout-btn:hover{
+
+            background:#990000;
+        }
+
+        .vote-container{
+
+            width:550px;
+
+            background:rgba(255,255,255,0.12);
+
+            backdrop-filter:blur(10px);
+
+            padding:45px;
+
+            border-radius:20px;
+
+            box-shadow:0px 0px 20px rgba(0,0,0,0.5);
+
+            text-align:center;
+
+            color:white;
+        }
+
+        .vote-container h1{
+
+            font-size:45px;
+
+            margin-bottom:15px;
+        }
+
+        .vote-container p{
+
+            font-size:20px;
+
+            margin-bottom:35px;
+        }
+
+        .candidate{
+
+            background:rgba(255,255,255,0.15);
+
+            padding:18px;
+
+            border-radius:12px;
+
+            margin-bottom:20px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            transition:0.3s;
+        }
+
+        .candidate:hover{
+
+            transform:scale(1.03);
+
+            background:rgba(255,255,255,0.25);
+        }
+
+        .candidate label{
+
+            font-size:24px;
+        }
+
+        input[type="radio"]{
+
+            width:22px;
+            height:22px;
+        }
+
+        .vote-btn{
+
+            margin-top:20px;
+
+            width:100%;
+
+            padding:16px;
+
+            border:none;
+
+            border-radius:10px;
+
+            background:#1e3c72;
+
+            color:white;
+
+            font-size:22px;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .vote-btn:hover{
+
+            background:#16325c;
+        }
+
+        .note{
+
+            margin-top:20px;
+
+            font-size:16px;
+
+            color:#ddd;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="top-bar">
+
+    <a href="LogoutServlet" class="logout-btn">
+
+        Logout
+
+    </a>
+
+</div>
+
+<div class="vote-container">
+
+    <h1>Cast Your Vote</h1>
+
+    <p>
+
+        Select your preferred candidate and submit your vote securely.
+
+    </p>
+
+    <form action="VoteServlet" method="post">
+
+        <div class="candidate">
+
+            <label>Candidate A</label>
+
+            <input type="radio"
+                   name="candidate"
+                   value="Candidate A"
+                   required>
+
+        </div>
+
+        <div class="candidate">
+
+            <label>Candidate B</label>
+
+            <input type="radio"
+                   name="candidate"
+                   value="Candidate B">
+
+        </div>
+
+        <div class="candidate">
+
+            <label>Candidate C</label>
+
+            <input type="radio"
+                   name="candidate"
+                   value="Candidate C">
+
+        </div>
+
+        <button type="submit" class="vote-btn">
+
+            Submit Vote
+
+        </button>
+
+    </form>
+
+    <div class="note">
+
+        One voter can cast only one vote.
+
+    </div>
+
+</div>
+
+</body>
+</html>

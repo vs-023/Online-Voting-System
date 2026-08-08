@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAQ - Online Voting System</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            margin:0;
+            background:#f4f4f4;
+        }
+
+        nav{
+            background:#1e3c72;
+            color:white;
+            padding:18px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        nav h2{
+            font-size:28px;
+        }
+
+        nav a{
+            color:white;
+            text-decoration:none;
+            margin-left:20px;
+            font-size:18px;
+        }
+
+        nav a:hover{
+            color:#ffd700;
+        }
+
+        .container{
+            width:85%;
+            margin:40px auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            text-align:center;
+            color:#1e3c72;
+        }
+
+        .faq{
+            margin-top:25px;
+        }
+
+        .question{
+            background:#1e3c72;
+            color:white;
+            padding:15px;
+            margin-top:10px;
+            cursor:pointer;
+            border-radius:6px;
+            font-size:18px;
+        }
+
+        .answer{
+            display:none;
+            padding:15px;
+            background:#f9f9f9;
+            border-left:4px solid #1e3c72;
+            font-size:16px;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:30px;
+            padding:10px 20px;
+            background:#1e3c72;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        .btn:hover{
+            background:#16325c;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <h2>ONLINE VOTING SYSTEM</h2>
+    <div>
+        <a href="home.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="help.html">Help</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <h1>Frequently Asked Questions</h1>
+
+    <div class="faq">
+
+        <div class="question">1. How do I register to vote?</div>
+        <div class="answer">You can register using the Register page by providing your valid details such as name, ID, and email.</div>
+
+        <div class="question">2. Who is eligible to vote?</div>
+        <div class="answer">Any citizen who meets the eligibility criteria defined in the Eligibility section can vote.</div>
+
+        <div class="question">3. Is online voting secure?</div>
+        <div class="answer">Yes, the system uses authentication and secure database storage to ensure safety and privacy.</div>
+
+        <div class="question">4. Can I change my vote after submitting?</div>
+        <div class="answer">No, once submitted, votes cannot be changed to maintain election integrity.</div>
+
+        <div class="question">5. What if I forget my login password?</div>
+        <div class="answer">You can reset your password using the recovery option on the login page.</div>
+
+    </div>
+
+    <a href="morefaq.html" class="btn">View More FAQs</a>
+
+</div>
+
+<script>
+    let questions = document.querySelectorAll(".question");
+
+    questions.forEach(q => {
+        q.addEventListener("click", () => {
+            let answer = q.nextElementSibling;
+            answer.style.display = (answer.style.display === "block") ? "none" : "block";
+        });
+    });
+</script>
+
+</body>
+</html>

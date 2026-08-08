@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>More FAQ - Online Voting System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f4f4;
+        }
+
+        /* Navigation */
+
+        nav{
+
+            background:#1e3c72;
+            color:white;
+
+            padding:18px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        nav h2{
+            margin:0;
+        }
+
+        nav a{
+
+            color:white;
+
+            text-decoration:none;
+
+            margin-left:15px;
+
+            font-size:18px;
+        }
+
+        nav a:hover{
+            color:#ffd700;
+        }
+
+        /* Main Container */
+
+        .container{
+
+            width:85%;
+
+            margin:40px auto;
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:10px;
+
+            box-shadow:0px 0px 10px rgba(0,0,0,0.2);
+        }
+
+        h1{
+
+            text-align:center;
+
+            color:#1e3c72;
+
+            margin-bottom:30px;
+        }
+
+        /* FAQ Section */
+
+        .faq-box{
+            margin-top:20px;
+        }
+
+        .item{
+
+            margin-bottom:15px;
+
+            padding:15px;
+
+            background:#e9f0ff;
+
+            border-left:5px solid #1e3c72;
+
+            border-radius:5px;
+
+            font-size:17px;
+        }
+
+        /* Ask Question Box */
+
+        .ask-box{
+
+            margin-top:40px;
+
+            padding:30px;
+
+            background:#1e3c72;
+
+            color:white;
+
+            border-radius:10px;
+        }
+
+        .ask-box h2{
+            margin-bottom:20px;
+        }
+
+        /* Input Fields */
+
+        input,
+        textarea{
+
+            width:100%;
+
+            padding:14px;
+
+            margin-top:10px;
+            margin-bottom:20px;
+
+            border:none;
+
+            border-radius:6px;
+
+            font-size:16px;
+
+            font-family:Arial, sans-serif;
+        }
+
+        input::placeholder,
+        textarea::placeholder{
+
+            font-family:Arial, sans-serif;
+
+            font-size:16px;
+
+            color:#666;
+        }
+
+        textarea{
+
+            resize:none;
+
+            height:140px;
+        }
+
+        /* Buttons */
+
+        button{
+
+            padding:12px 25px;
+
+            border:none;
+
+            background:#ffd700;
+
+            cursor:pointer;
+
+            font-weight:bold;
+
+            font-size:16px;
+
+            border-radius:5px;
+
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#ffcc00;
+        }
+
+        /* Search Box */
+
+        .search-box{
+
+            margin-top:40px;
+
+            background:#f1f5ff;
+
+            padding:30px;
+
+            border-radius:10px;
+
+            text-align:center;
+        }
+
+        .search-box h2{
+
+            color:#1e3c72;
+
+            margin-bottom:15px;
+        }
+
+        .search-box p{
+            margin-bottom:20px;
+        }
+
+        .search-input{
+
+            width:90%;
+
+            max-width:700px;
+
+            padding:14px;
+
+            border:1px solid gray;
+
+            border-radius:5px;
+
+            font-size:16px;
+
+            font-family:Arial, sans-serif;
+        }
+
+        .search-btn{
+            margin-top:20px;
+        }
+
+    </style>
+
+    <script>
+
+        // Validate Ask Question Form
+
+        function validateForm(){
+
+            let question =
+            document.getElementById("question").value.trim();
+
+            let issue =
+            document.getElementById("issue").value.trim();
+
+            // Empty fields
+
+            if(question === "" || issue === ""){
+
+                alert("Please fill all fields before submitting.");
+
+                return false;
+            }
+
+            // Minimum question length
+
+            if(question.length < 5){
+
+                alert("Question must contain at least 5 characters.");
+
+                return false;
+            }
+
+            // Minimum issue length
+
+            if(issue.length < 10){
+
+                alert("Issue description must contain at least 10 characters.");
+
+                return false;
+            }
+
+            alert("Question submitted successfully!");
+
+            return true;
+        }
+
+        // Google Search
+
+        function searchQuestion(){
+
+            let query =
+            document.getElementById("searchQuery").value;
+
+            if(query.trim() === ""){
+
+                alert("Please enter your question");
+
+                return;
+            }
+
+            window.open(
+                "https://www.google.com/search?q="
+                + encodeURIComponent(query),
+                "_blank"
+            );
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <h2>ONLINE VOTING SYSTEM</h2>
+
+        <div>
+
+            <a href="home.html">Home</a>
+
+            <a href="faq.html">FAQ</a>
+
+            <a href="help.html">Help</a>
+
+        </div>
+
+    </nav>
+
+    <!-- Main Container -->
+
+    <div class="container">
+
+        <h1>More Frequently Asked Questions</h1>
+
+        <!-- FAQ Items -->
+
+        <div class="faq-box">
+
+            <div class="item">
+
+                <b>How is my vote counted?</b><br>
+
+                Votes are securely stored in the database and counted automatically after election ends.
+
+            </div>
+
+            <div class="item">
+
+                <b>Can I vote from mobile?</b><br>
+
+                Yes, the system is fully responsive and works on mobile devices.
+
+            </div>
+
+            <div class="item">
+
+                <b>What happens if the server crashes?</b><br>
+
+                Backup systems ensure that all votes are safely stored and recovered.
+
+            </div>
+
+            <div class="item">
+
+                <b>Is my identity visible?</b><br>
+
+                No, voting is completely anonymous.
+
+            </div>
+
+        </div>
+
+        <!-- Ask Question Section -->
+
+        <div class="ask-box">
+
+            <h2>Ask Your Question</h2>
+
+            <form onsubmit="return validateForm()">
+
+                <input type="text"
+                       id="question"
+                       placeholder="Enter your question">
+
+                <textarea
+                    id="issue"
+                    placeholder="Describe your issue..."></textarea>
+
+                <button type="submit">
+
+                    Submit
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- Search Question Section -->
+
+        <div class="search-box">
+
+            <h2>Search Your Question Online</h2>
+
+            <p>
+                Enter any question related to online voting system
+            </p>
+
+            <input type="text"
+                   id="searchQuery"
+                   class="search-input"
+                   placeholder="Example: How to reset voter password?">
+
+            <br>
+
+            <button class="search-btn"
+                    onclick="searchQuestion()">
+
+                Search Question
+
+            </button>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

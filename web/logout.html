@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logout</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+            url("img/vote.png");
+            background-size:cover;
+            background-position:center;
+        }
+
+        .box{
+            width:420px;
+            background:white;
+            padding:35px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 0 20px rgba(0,0,0,0.4);
+        }
+
+        h1{
+            color:#1e3c72;
+            margin-bottom:15px;
+        }
+
+        p{
+            color:#444;
+            margin-bottom:25px;
+            font-size:16px;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:12px 25px;
+            margin:8px;
+            border-radius:8px;
+            text-decoration:none;
+            font-size:16px;
+            color:white;
+        }
+
+        .yes{
+            background:#cc0000;
+        }
+
+        .yes:hover{
+            background:#990000;
+        }
+
+        .no{
+            background:#1e3c72;
+        }
+
+        .no:hover{
+            background:#16325c;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>Logout</h1>
+
+    <p>Are you sure you want to logout from the system?</p>
+
+    <a href="LogoutServlet" class="btn yes">Yes, Logout</a>
+
+    <a href="voter-dashboard.jsp" class="btn no">Cancel</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Online Voting System</title>
+
+    <!-- Redirect after 5 seconds -->
+    <meta http-equiv="refresh" content="5;url=home.html">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial, sans-serif;
+            height:100vh;
+            overflow:hidden;
+            position:relative;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            color:white;
+        }
+
+        /* Full Screen Background Image */
+
+        .background{
+
+            position:absolute;
+
+            top:0;
+            left:0;
+
+            width:100%;
+            height:100%;
+
+            background:url("img/vote.png");
+
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+
+            opacity:0.25;
+
+            z-index:-1;
+        }
+
+        /* Dark Overlay */
+
+        .overlay{
+
+            position:absolute;
+
+            top:0;
+            left:0;
+
+            width:100%;
+            height:100%;
+
+            background:rgba(0,0,0,0.5);
+
+            z-index:0;
+        }
+
+        /* Main Content */
+
+        .container{
+
+            position:relative;
+
+            z-index:1;
+
+            text-align:center;
+        }
+
+        h1{
+
+            font-size:65px;
+
+            margin-bottom:20px;
+
+            letter-spacing:2px;
+        }
+
+        h3{
+
+            font-size:30px;
+
+            font-weight:normal;
+        }
+
+        p{
+
+            margin-top:20px;
+
+            font-size:20px;
+        }
+
+        /* Loader */
+
+        .loader{
+
+            margin:35px auto;
+
+            width:65px;
+            height:65px;
+
+            border:8px solid #f3f3f3;
+            border-top:8px solid white;
+
+            border-radius:50%;
+
+            animation:spin 1s linear infinite;
+        }
+
+        @keyframes spin{
+
+            0%{
+                transform:rotate(0deg);
+            }
+
+            100%{
+                transform:rotate(360deg);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Full Screen Background -->
+
+    <div class="background"></div>
+
+    <!-- Dark Overlay -->
+
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+
+    <div class="container">
+
+        <h1>ONLINE VOTING SYSTEM</h1>
+
+        <h3>Secure Digital Voting Service</h3>
+
+        <div class="loader"></div>
+
+        <p>Loading Please Wait...</p>
+
+    </div>
+
+</body>
+</html>

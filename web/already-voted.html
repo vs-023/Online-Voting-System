@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Already Voted</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            background:
+            linear-gradient(rgba(0,0,0,0.65),
+            rgba(0,0,0,0.65)),
+            url("img/vote.png");
+
+            background-size:cover;
+            background-position:center;
+        }
+
+        .card{
+
+            width:500px;
+
+            background:rgba(255,255,255,0.96);
+
+            padding:45px;
+
+            border-radius:18px;
+
+            text-align:center;
+
+            box-shadow:0px 0px 25px rgba(0,0,0,0.4);
+
+            animation:fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        .icon{
+
+            font-size:75px;
+
+            color:#cc0000;
+
+            margin-bottom:18px;
+        }
+
+        h1{
+
+            color:#cc0000;
+
+            margin-bottom:18px;
+
+            font-size:42px;
+        }
+
+        p{
+
+            color:#444;
+
+            font-size:20px;
+
+            line-height:1.8;
+        }
+
+        .rule{
+
+            margin-top:18px;
+
+            color:#1e3c72;
+
+            font-weight:bold;
+
+            font-size:18px;
+        }
+
+        .btn{
+
+            display:inline-block;
+
+            margin-top:30px;
+
+            padding:14px 30px;
+
+            background:#1e3c72;
+
+            color:white;
+
+            text-decoration:none;
+
+            border-radius:8px;
+
+            font-size:18px;
+
+            transition:0.3s;
+        }
+
+        .btn:hover{
+
+            background:#16325c;
+
+            transform:translateY(-2px);
+        }
+
+        .small{
+
+            margin-top:20px;
+
+            color:#777;
+
+            font-size:14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="icon">
+
+            ✖
+
+        </div>
+
+        <h1>
+
+            Already Voted
+
+        </h1>
+
+        <p>
+
+            Your vote has already been recorded successfully.
+
+        </p>
+
+        <div class="rule">
+
+            One Person Can Cast Only One Vote
+
+        </div>
+
+        <a href="voter-dashboard.jsp"
+           class="btn">
+
+            Back To Dashboard
+
+        </a>
+
+        <div class="small">
+
+            Secure Digital Election System
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

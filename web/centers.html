@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Offline Centers - Online Voting System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f4f4f4;
+        }
+
+        /* Navigation */
+
+        nav{
+            background:#1e3c72;
+            color:white;
+            padding:18px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        nav h2{
+            margin-left:20px;
+            font-size:32px;
+        }
+
+        nav ul{
+            list-style:none;
+            display:flex;
+            margin-right:20px;
+        }
+
+        nav ul li{
+            margin-left:20px;
+        }
+
+        nav ul li a{
+            color:white;
+            text-decoration:none;
+            font-size:18px;
+            transition:0.3s;
+        }
+
+        nav ul li a:hover{
+            color:#ffd700;
+        }
+
+        /* Heading */
+
+        .heading{
+            text-align:center;
+            padding:40px 20px 20px;
+        }
+
+        .heading h1{
+            color:#1e3c72;
+            font-size:50px;
+            margin-bottom:10px;
+        }
+
+        .heading p{
+            font-size:22px;
+            color:#555;
+        }
+
+        /* Filter */
+
+        .filter-box{
+            width:90%;
+            margin:20px auto;
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            gap:20px;
+        }
+
+        .filter-box select,
+        .filter-box input{
+
+            padding:12px;
+            width:260px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            font-size:16px;
+        }
+
+        /* Centers */
+
+        .centers-container{
+            width:90%;
+            margin:30px auto;
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(320px,1fr));
+
+            gap:25px;
+        }
+
+        .center-card{
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0px 0px 12px rgba(0,0,0,0.15);
+            transition:0.3s;
+        }
+
+        .center-card:hover{
+            transform:translateY(-8px);
+        }
+
+        .center-card h2{
+            color:#1e3c72;
+            margin-bottom:15px;
+            font-size:28px;
+        }
+
+        .center-card p{
+            font-size:18px;
+            margin-bottom:10px;
+            line-height:1.6;
+        }
+
+        /* Support Section */
+
+        .support{
+            width:90%;
+            margin:50px auto;
+            background:#1e3c72;
+            color:white;
+            text-align:center;
+            padding:40px;
+            border-radius:12px;
+        }
+
+        .support h2{
+            font-size:42px;
+            margin-bottom:20px;
+        }
+
+        .support p{
+            font-size:22px;
+            margin-bottom:25px;
+        }
+
+        .btn{
+            text-decoration:none;
+            background:#ffd700;
+            color:black;
+            padding:14px 28px;
+            border-radius:6px;
+            font-size:18px;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#ffcc00;
+        }
+
+        /* Footer */
+
+        footer{
+            background:#1e3c72;
+            color:white;
+            text-align:center;
+            padding:18px;
+            margin-top:50px;
+            font-size:18px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <h2>ONLINE VOTING SYSTEM</h2>
+
+        <ul>
+
+            <li><a href="home.html">Home</a></li>
+
+            <li><a href="login.html">Login</a></li>
+
+            <li><a href="register.html">Register</a></li>
+
+            <li><a href="faq.html">FAQ</a></li>
+
+            <li><a href="help.html">Help</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- Heading -->
+
+    <div class="heading">
+
+        <h1>Offline Voting Support Centers</h1>
+
+        <p>
+
+            Find voter assistance and verification centers across India
+
+        </p>
+
+    </div>
+
+    <!-- Filters -->
+
+    <div class="filter-box">
+
+        <select id="stateFilter">
+
+            <option value="all">Select State</option>
+
+            <option value="andhra pradesh">Andhra Pradesh</option>
+            <option value="arunachal pradesh">Arunachal Pradesh</option>
+            <option value="assam">Assam</option>
+            <option value="bihar">Bihar</option>
+            <option value="chhattisgarh">Chhattisgarh</option>
+            <option value="goa">Goa</option>
+            <option value="gujarat">Gujarat</option>
+            <option value="haryana">Haryana</option>
+            <option value="himachal pradesh">Himachal Pradesh</option>
+            <option value="jharkhand">Jharkhand</option>
+            <option value="karnataka">Karnataka</option>
+            <option value="kerala">Kerala</option>
+            <option value="madhya pradesh">Madhya Pradesh</option>
+            <option value="maharashtra">Maharashtra</option>
+            <option value="manipur">Manipur</option>
+            <option value="meghalaya">Meghalaya</option>
+            <option value="mizoram">Mizoram</option>
+            <option value="nagaland">Nagaland</option>
+            <option value="odisha">Odisha</option>
+            <option value="punjab">Punjab</option>
+            <option value="rajasthan">Rajasthan</option>
+            <option value="sikkim">Sikkim</option>
+            <option value="tamil nadu">Tamil Nadu</option>
+            <option value="telangana">Telangana</option>
+            <option value="tripura">Tripura</option>
+            <option value="uttar pradesh">Uttar Pradesh</option>
+            <option value="uttarakhand">Uttarakhand</option>
+            <option value="west bengal">West Bengal</option>
+
+        </select>
+
+        <input type="text"
+        id="searchInput"
+        placeholder="Search by city or state...">
+
+    </div>
+
+    <!-- Centers -->
+
+    <div class="centers-container">
+
+        <div class="center-card" data-state="andhra pradesh">
+            <h2>Visakhapatnam Center</h2>
+            <p><b>State:</b> Andhra Pradesh</p>
+            <p><b>Location:</b> Dwaraka Nagar</p>
+            <p><b>Services:</b> Registration & Verification</p>
+            <p><b>Contact:</b> +91 9000011111</p>
+        </div>
+
+        <div class="center-card" data-state="arunachal pradesh">
+            <h2>Itanagar Center</h2>
+            <p><b>State:</b> Arunachal Pradesh</p>
+            <p><b>Location:</b> Bank Tinali</p>
+            <p><b>Services:</b> Voter Assistance</p>
+            <p><b>Contact:</b> +91 9000022222</p>
+        </div>
+
+        <div class="center-card" data-state="assam">
+            <h2>Guwahati Center</h2>
+            <p><b>State:</b> Assam</p>
+            <p><b>Location:</b> GS Road</p>
+            <p><b>Services:</b> Registration Help</p>
+            <p><b>Contact:</b> +91 9000033333</p>
+        </div>
+
+        <div class="center-card" data-state="bihar">
+            <h2>Patna Center</h2>
+            <p><b>State:</b> Bihar</p>
+            <p><b>Location:</b> Fraser Road</p>
+            <p><b>Services:</b> Verification Support</p>
+            <p><b>Contact:</b> +91 9000044444</p>
+        </div>
+
+        <div class="center-card" data-state="chhattisgarh">
+            <h2>Raipur Center</h2>
+            <p><b>State:</b> Chhattisgarh</p>
+            <p><b>Location:</b> Civil Lines</p>
+            <p><b>Services:</b> Voter Help Desk</p>
+            <p><b>Contact:</b> +91 9000055555</p>
+        </div>
+
+        <div class="center-card" data-state="goa">
+            <h2>Panaji Center</h2>
+            <p><b>State:</b> Goa</p>
+            <p><b>Location:</b> Campal</p>
+            <p><b>Services:</b> Registration Support</p>
+            <p><b>Contact:</b> +91 9000066666</p>
+        </div>
+
+        <div class="center-card" data-state="gujarat">
+            <h2>Ahmedabad Center</h2>
+            <p><b>State:</b> Gujarat</p>
+            <p><b>Location:</b> Navrangpura</p>
+            <p><b>Services:</b> ID Verification</p>
+            <p><b>Contact:</b> +91 9000077777</p>
+        </div>
+
+        <div class="center-card" data-state="haryana">
+            <h2>Gurugram Center</h2>
+            <p><b>State:</b> Haryana</p>
+            <p><b>Location:</b> Sector 14</p>
+            <p><b>Services:</b> Complaint Support</p>
+            <p><b>Contact:</b> +91 9000088888</p>
+        </div>
+
+        <div class="center-card" data-state="himachal pradesh">
+            <h2>Shimla Center</h2>
+            <p><b>State:</b> Himachal Pradesh</p>
+            <p><b>Location:</b> Mall Road</p>
+            <p><b>Services:</b> Registration Help</p>
+            <p><b>Contact:</b> +91 9000099999</p>
+        </div>
+
+        <div class="center-card" data-state="jharkhand">
+            <h2>Ranchi Center</h2>
+            <p><b>State:</b> Jharkhand</p>
+            <p><b>Location:</b> Main Road</p>
+            <p><b>Services:</b> Verification</p>
+            <p><b>Contact:</b> +91 9000012345</p>
+        </div>
+
+        <div class="center-card" data-state="karnataka">
+            <h2>Bangalore Center</h2>
+            <p><b>State:</b> Karnataka</p>
+            <p><b>Location:</b> MG Road</p>
+            <p><b>Services:</b> Technical Support</p>
+            <p><b>Contact:</b> +91 9000023456</p>
+        </div>
+
+        <div class="center-card" data-state="kerala">
+            <h2>Kochi Center</h2>
+            <p><b>State:</b> Kerala</p>
+            <p><b>Location:</b> Marine Drive</p>
+            <p><b>Services:</b> Registration & Recovery</p>
+            <p><b>Contact:</b> +91 9000034567</p>
+        </div>
+
+        <div class="center-card" data-state="madhya pradesh">
+            <h2>Bhopal Center</h2>
+            <p><b>State:</b> Madhya Pradesh</p>
+            <p><b>Location:</b> MP Nagar</p>
+            <p><b>Services:</b> Verification Support</p>
+            <p><b>Contact:</b> +91 9000045678</p>
+        </div>
+
+        <div class="center-card" data-state="maharashtra">
+            <h2>Mumbai Center</h2>
+            <p><b>State:</b> Maharashtra</p>
+            <p><b>Location:</b> Andheri West</p>
+            <p><b>Services:</b> Voter Assistance</p>
+            <p><b>Contact:</b> +91 9000056789</p>
+        </div>
+
+        <div class="center-card" data-state="manipur">
+            <h2>Imphal Center</h2>
+            <p><b>State:</b> Manipur</p>
+            <p><b>Location:</b> Thangal Bazaar</p>
+            <p><b>Services:</b> Registration Help</p>
+            <p><b>Contact:</b> +91 9000067890</p>
+        </div>
+
+        <div class="center-card" data-state="meghalaya">
+            <h2>Shillong Center</h2>
+            <p><b>State:</b> Meghalaya</p>
+            <p><b>Location:</b> Police Bazar</p>
+            <p><b>Services:</b> Voter Help Desk</p>
+            <p><b>Contact:</b> +91 9000078901</p>
+        </div>
+
+        <div class="center-card" data-state="mizoram">
+            <h2>Aizawl Center</h2>
+            <p><b>State:</b> Mizoram</p>
+            <p><b>Location:</b> Dawrpui</p>
+            <p><b>Services:</b> Verification</p>
+            <p><b>Contact:</b> +91 9000089012</p>
+        </div>
+
+        <div class="center-card" data-state="nagaland">
+            <h2>Dimapur Center</h2>
+            <p><b>State:</b> Nagaland</p>
+            <p><b>Location:</b> Circular Road</p>
+            <p><b>Services:</b> Registration Support</p>
+            <p><b>Contact:</b> +91 9000090123</p>
+        </div>
+
+        <div class="center-card" data-state="odisha">
+            <h2>Bhubaneswar Center</h2>
+            <p><b>State:</b> Odisha</p>
+            <p><b>Location:</b> Saheed Nagar</p>
+            <p><b>Services:</b> Technical Assistance</p>
+            <p><b>Contact:</b> +91 9000011223</p>
+        </div>
+
+        <div class="center-card" data-state="punjab">
+            <h2>Chandigarh Center</h2>
+            <p><b>State:</b> Punjab</p>
+            <p><b>Location:</b> Sector 17</p>
+            <p><b>Services:</b> Registration & Verification</p>
+            <p><b>Contact:</b> +91 9000022334</p>
+        </div>
+
+        <div class="center-card" data-state="rajasthan">
+            <h2>Jaipur Center</h2>
+            <p><b>State:</b> Rajasthan</p>
+            <p><b>Location:</b> MI Road</p>
+            <p><b>Services:</b> Complaint Support</p>
+            <p><b>Contact:</b> +91 9000033445</p>
+        </div>
+
+        <div class="center-card" data-state="sikkim">
+            <h2>Gangtok Center</h2>
+            <p><b>State:</b> Sikkim</p>
+            <p><b>Location:</b> MG Marg</p>
+            <p><b>Services:</b> Voter Assistance</p>
+            <p><b>Contact:</b> +91 9000044556</p>
+        </div>
+
+        <div class="center-card" data-state="tamil nadu">
+            <h2>Chennai Center</h2>
+            <p><b>State:</b> Tamil Nadu</p>
+            <p><b>Location:</b> T Nagar</p>
+            <p><b>Services:</b> Registration & Recovery</p>
+            <p><b>Contact:</b> +91 9000055667</p>
+        </div>
+
+        <div class="center-card" data-state="telangana">
+            <h2>Hyderabad Center</h2>
+            <p><b>State:</b> Telangana</p>
+            <p><b>Location:</b> Banjara Hills</p>
+            <p><b>Services:</b> Verification Support</p>
+            <p><b>Contact:</b> +91 9000066778</p>
+        </div>
+
+        <div class="center-card" data-state="tripura">
+            <h2>Agartala Center</h2>
+            <p><b>State:</b> Tripura</p>
+            <p><b>Location:</b> Palace Compound</p>
+            <p><b>Services:</b> Registration Help</p>
+            <p><b>Contact:</b> +91 9000077889</p>
+        </div>
+
+        <div class="center-card" data-state="uttar pradesh">
+            <h2>Lucknow Center</h2>
+            <p><b>State:</b> Uttar Pradesh</p>
+            <p><b>Location:</b> Hazratganj</p>
+            <p><b>Services:</b> Voter Assistance</p>
+            <p><b>Contact:</b> +91 9000088990</p>
+        </div>
+
+        <div class="center-card" data-state="uttarakhand">
+            <h2>Dehradun Center</h2>
+            <p><b>State:</b> Uttarakhand</p>
+            <p><b>Location:</b> Rajpur Road</p>
+            <p><b>Services:</b> Verification & Support</p>
+            <p><b>Contact:</b> +91 9000099001</p>
+        </div>
+
+        <div class="center-card" data-state="west bengal">
+            <h2>Kolkata Center</h2>
+            <p><b>State:</b> West Bengal</p>
+            <p><b>Location:</b> Salt Lake</p>
+            <p><b>Services:</b> Help Desk & Registration</p>
+            <p><b>Contact:</b> +91 9000010112</p>
+        </div>
+
+    </div>
+
+    <!-- Support -->
+
+    <div class="support">
+
+        <h2>Need Additional Help?</h2>
+
+        <p>
+
+            Contact our support team for any voter assistance
+            or technical issues related to online elections.
+
+        </p>
+
+        <a href="contact.html" class="btn">
+
+            Contact Support
+
+        </a>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+
+        © 2026 Online Voting System | India Support Centers | V²T Squad
+
+    </footer>
+
+    <!-- Filter Script -->
+
+    <script>
+
+        const stateFilter =
+        document.getElementById("stateFilter");
+
+        const searchInput =
+        document.getElementById("searchInput");
+
+        const cards =
+        document.querySelectorAll(".center-card");
+
+        function filterCenters(){
+
+            let state =
+            stateFilter.value.toLowerCase();
+
+            let search =
+            searchInput.value.toLowerCase();
+
+            cards.forEach(card => {
+
+                let cardState =
+                card.getAttribute("data-state");
+
+                let text =
+                card.innerText.toLowerCase();
+
+                let matchState =
+                state === "all" || cardState === state;
+
+                let matchSearch =
+                text.includes(search);
+
+                if(matchState && matchSearch){
+
+                    card.style.display = "block";
+
+                }
+
+                else{
+
+                    card.style.display = "none";
+                }
+
+            });
+
+        }
+
+        stateFilter.addEventListener(
+        "change", filterCenters);
+
+        searchInput.addEventListener(
+        "keyup", filterCenters);
+
+    </script>
+
+</body>
+</html>
