@@ -340,21 +340,21 @@ Login
 
 Voter Dashboard
 
-&#x20; │
+&#x09;  │
 
-&#x20; ├── View Candidates
+&#x09;  ├── View Candidates
 
-&#x20; │
+&#x09;  │	
 
-&#x20; ├── Cast Vote
+&#x09;  ├── Cast Vote
 
-&#x20; │
+&#x09;  │
 
-&#x20; ├── Check Voting Status
+&#x09;  ├── Check Voting Status
 
-&#x20; │
+&#x09;  │
 
-&#x20; └── View Results
+&#x09;  └── View Results
 
 
 
@@ -376,19 +376,19 @@ Admin Login
 
 Admin Dashboard
 
-&#x20; │
+&#x09;  │
 
-&#x20; ├── Manage Voters
+&#x09;  ├── Manage Voters
 
-&#x20; ├── Manage Candidates
+&#x09;  ├── Manage Candidates
 
-&#x20; ├── Manage Requests
+&#x09;  ├── Manage Requests
 
-&#x20; ├── Manage Rules
+&#x09;  ├── Manage Rules
 
-&#x20; ├── View Statistics
+&#x09;  ├── View Statistics
 
-&#x20; └── Manage Results
+&#x09;  └── Manage Results
 
 
 
