@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/FeedbackServlet")
 public class FeedbackServlet extends HttpServlet {
 
+    @Override
     protected void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
@@ -109,9 +110,7 @@ public class FeedbackServlet extends HttpServlet {
             con.close();
 
 
-            /*
-             * Logout after feedback
-             */
+          
 
             session.invalidate();
 

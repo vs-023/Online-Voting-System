@@ -64,9 +64,6 @@ public class LoginServlet extends HttpServlet {
 
                 if (rs.next()) {
 
-                    /*
-                     * Create a fresh session after successful login
-                     */
 
                     HttpSession oldSession = request.getSession(false);
 
@@ -76,11 +73,6 @@ public class LoginServlet extends HttpServlet {
 
                     HttpSession session =
                             request.getSession(true);
-
-
-                    /*
-                     * Store voter information
-                     */
 
                     session.setAttribute(
                             "user_type",
@@ -98,15 +90,7 @@ public class LoginServlet extends HttpServlet {
                     );
 
 
-                    /*
-                     * IMPORTANT
-                     *
-                     * DO NOT set hasVoted = false here.
-                     *
-                     * The voting status must be checked
-                     * from the database.
-                     */
-
+              
 
                     response.sendRedirect(
                             "voter-dashboard.jsp"
@@ -126,19 +110,10 @@ public class LoginServlet extends HttpServlet {
             }
 
 
-            // =====================================================
-            // ADMIN LOGIN
-            // =====================================================
 
             else if ("admin".equalsIgnoreCase(usertype)) {
 
-                /*
-                 * Admin accounts are already stored
-                 * in the admin table.
-                 *
-                 * There is NO admin registration here.
-                 */
-
+             
                 PreparedStatement ps = con.prepareStatement(
                         "SELECT * FROM admin WHERE username=? AND password=?"
                 );
@@ -150,10 +125,6 @@ public class LoginServlet extends HttpServlet {
 
 
                 if (rs.next()) {
-
-                    /*
-                     * Create fresh admin session
-                     */
 
                     HttpSession oldSession =
                             request.getSession(false);

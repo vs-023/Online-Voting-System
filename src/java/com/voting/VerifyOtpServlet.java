@@ -47,9 +47,6 @@ public class VerifyOtpServlet extends HttpServlet {
             return;
         }
 
-        // =========================
-        // GET USER DATA
-        // =========================
         String name = (String) session.getAttribute("reg_name");
         String email = (String) session.getAttribute("reg_email");
         String mobile = (String) session.getAttribute("reg_mobile");
@@ -69,9 +66,7 @@ public class VerifyOtpServlet extends HttpServlet {
                     "adminmyy"
             );
 
-            // =========================
-            // FIXED INSERT QUERY (IMPORTANT)
-            // =========================
+   
             PreparedStatement ps = con.prepareStatement(
                 "INSERT INTO voters " +
                 "(name, email, mobile, dob, gender, voterid, aadhaar, address, password, status) " +

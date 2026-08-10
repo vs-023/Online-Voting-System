@@ -21,9 +21,6 @@ public class VoteServlet extends HttpServlet {
             HttpServletResponse response)
             throws IOException {
 
-        /* ==============================
-           CHECK LOGIN
-           ============================== */
 
         HttpSession session =
                 request.getSession(false);
@@ -38,10 +35,6 @@ public class VoteServlet extends HttpServlet {
         String email =
                 (String) session.getAttribute("email");
 
-
-        /* ==============================
-           GET CANDIDATE ID
-           ============================== */
 
         String candidateId =
                 request.getParameter("candidateId");
@@ -81,9 +74,6 @@ public class VoteServlet extends HttpServlet {
 
         try {
 
-            /* ==============================
-               CONNECT DATABASE
-               ============================== */
 
             Class.forName(
                     "com.mysql.cj.jdbc.Driver");
@@ -99,9 +89,6 @@ public class VoteServlet extends HttpServlet {
             );
 
 
-            /* ==============================
-               CHECK ALREADY VOTED
-               ============================== */
 
             checkPs = con.prepareStatement(
 
@@ -137,16 +124,10 @@ public class VoteServlet extends HttpServlet {
             checkPs = null;
 
 
-            /* ==============================
-               START TRANSACTION
-               ============================== */
 
             con.setAutoCommit(false);
 
 
-            /* ==============================
-               INSERT VOTE
-               ============================== */
 
             insertPs = con.prepareStatement(
 
@@ -163,9 +144,6 @@ public class VoteServlet extends HttpServlet {
             insertPs.executeUpdate();
 
 
-            /* ==============================
-               UPDATE CANDIDATE COUNT
-               ============================== */
 
             updatePs = con.prepareStatement(
 
@@ -182,9 +160,6 @@ public class VoteServlet extends HttpServlet {
                     updatePs.executeUpdate();
 
 
-            /* ==============================
-               CHECK CANDIDATE
-               ============================== */
 
             if (updated == 0) {
 
@@ -198,16 +173,11 @@ public class VoteServlet extends HttpServlet {
             }
 
 
-            /* ==============================
-               COMMIT
-               ============================== */
 
             con.commit();
 
 
-            /* ==============================
-               SESSION STATUS
-               ============================== */
+
 
             session.setAttribute(
                     "hasVoted",
@@ -215,9 +185,6 @@ public class VoteServlet extends HttpServlet {
             );
 
 
-            /* ==============================
-               SUCCESS
-               ============================== */
 
             response.sendRedirect(
                     "voter-dashboard.jsp?success=voted"
@@ -236,10 +203,6 @@ public class VoteServlet extends HttpServlet {
             }
 
 
-            /*
-             * Duplicate voter_email means
-             * this voter has already voted.
-             */
 
             if (e.getMessage() != null &&
                 e.getMessage().contains("Duplicate")) {
