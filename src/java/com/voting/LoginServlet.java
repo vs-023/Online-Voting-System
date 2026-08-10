@@ -1,10 +1,17 @@
 package com.voting;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -17,17 +24,32 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        if (usertype == null || email == null || password == null ||
+            usertype.trim().isEmpty() ||
+            email.trim().isEmpty() ||
+            password.trim().isEmpty()) {
+
+            response.sendRedirect("login.html?error=empty");
+            return;
+        }
+
+        Connection con = null;
+
         try {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection(
+            con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/votingdb",
                     "root",
-                    "myadmin"
+                    "adminmyy"
             );
 
-            // ================= VOTER LOGIN =================
+
+            // =====================================================
+            // VOTER LOGIN
+            // =====================================================
+
             if ("voter".equalsIgnoreCase(usertype)) {
 
                 PreparedStatement ps = con.prepareStatement(
@@ -39,28 +61,83 @@ public class LoginServlet extends HttpServlet {
 
                 ResultSet rs = ps.executeQuery();
 
+
                 if (rs.next()) {
 
-                    HttpSession session = request.getSession();
-                    session.invalidate();
-                    session = request.getSession(true);
+                    /*
+                     * Create a fresh session after successful login
+                     */
 
-                    session.setAttribute("user_type", "voter");
-                    session.setAttribute("email", email);
-                    session.setAttribute("name", rs.getString("name"));
+                    HttpSession oldSession = request.getSession(false);
 
-                    // 🔥 IMPORTANT FIX
-                    session.setAttribute("hasVoted", false);
+                    if (oldSession != null) {
+                        oldSession.invalidate();
+                    }
 
-                    response.sendRedirect("voter-dashboard.jsp");
+                    HttpSession session =
+                            request.getSession(true);
+
+
+                    /*
+                     * Store voter information
+                     */
+
+                    session.setAttribute(
+                            "user_type",
+                            "voter"
+                    );
+
+                    session.setAttribute(
+                            "email",
+                            email
+                    );
+
+                    session.setAttribute(
+                            "name",
+                            rs.getString("name")
+                    );
+
+
+                    /*
+                     * IMPORTANT
+                     *
+                     * DO NOT set hasVoted = false here.
+                     *
+                     * The voting status must be checked
+                     * from the database.
+                     */
+
+
+                    response.sendRedirect(
+                            "voter-dashboard.jsp"
+                    );
 
                 } else {
-                    response.sendRedirect("login.html?error=1");
+
+                    response.sendRedirect(
+                            "login.html?error=1"
+                    );
                 }
+
+
+                rs.close();
+                ps.close();
+
             }
 
-            // ================= ADMIN LOGIN =================
+
+            // =====================================================
+            // ADMIN LOGIN
+            // =====================================================
+
             else if ("admin".equalsIgnoreCase(usertype)) {
+
+                /*
+                 * Admin accounts are already stored
+                 * in the admin table.
+                 *
+                 * There is NO admin registration here.
+                 */
 
                 PreparedStatement ps = con.prepareStatement(
                         "SELECT * FROM admin WHERE username=? AND password=?"
@@ -71,25 +148,83 @@ public class LoginServlet extends HttpServlet {
 
                 ResultSet rs = ps.executeQuery();
 
+
                 if (rs.next()) {
 
-                    HttpSession session = request.getSession();
-                    session.invalidate();
-                    session = request.getSession(true);
+                    /*
+                     * Create fresh admin session
+                     */
 
-                    session.setAttribute("user_type", "admin");
-                    session.setAttribute("admin", email);
+                    HttpSession oldSession =
+                            request.getSession(false);
 
-                    response.sendRedirect("admin-dashboard.jsp");
+                    if (oldSession != null) {
+                        oldSession.invalidate();
+                    }
+
+                    HttpSession session =
+                            request.getSession(true);
+
+
+                    session.setAttribute(
+                            "user_type",
+                            "admin"
+                    );
+
+                    session.setAttribute(
+                            "admin",
+                            email
+                    );
+
+
+                    response.sendRedirect(
+                            "admin-dashboard.jsp"
+                    );
 
                 } else {
-                    response.sendRedirect("login.html?error=1");
+
+                    response.sendRedirect(
+                            "login.html?error=1"
+                    );
                 }
+
+
+                rs.close();
+                ps.close();
+
             }
 
+
+            // =====================================================
+            // INVALID USER TYPE
+            // =====================================================
+
+            else {
+
+                response.sendRedirect(
+                        "login.html?error=1"
+                );
+            }
+
+
         } catch (Exception e) {
+
             e.printStackTrace();
-            response.sendRedirect("login.html?error=2");
+
+            response.sendRedirect(
+                    "login.html?error=2"
+            );
+
+        } finally {
+
+            try {
+
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (Exception ignored) {
+            }
         }
     }
 }

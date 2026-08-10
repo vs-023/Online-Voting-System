@@ -1,249 +1,640 @@
 <%@ page import="java.sql.*" %>
 
 <%
-
 String email = (String) session.getAttribute("email");
 
-if(email == null){
-
+if (email == null || email.trim().isEmpty()) {
     response.sendRedirect("login.html");
-
     return;
 }
 
+
+/* Prevent back button and caching */
+
+response.setHeader(
+    "Cache-Control",
+    "no-cache, no-store, must-revalidate"
+);
+
+response.setHeader("Pragma", "no-cache");
+
+response.setDateHeader("Expires", 0);
+
+
+/* Voting information */
+
 boolean voted = false;
 
-try{
+String candidateName = "";
+String party = "";
+String voteTime = "";
+
+Connection con = null;
+PreparedStatement ps = null;
+ResultSet rs = null;
+
+
+try {
 
     Class.forName("com.mysql.cj.jdbc.Driver");
 
-    Connection con = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/votingdb",
-            "root",
-            "myadmin"
+
+    con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/votingdb",
+        "root",
+        "adminmyy"
     );
 
-    PreparedStatement ps =
-            con.prepareStatement(
-                    "SELECT * FROM votes WHERE voter_email=?"
-            );
+
+    /*
+       Check whether this voter has already voted.
+       Also get the candidate name and vote time.
+    */
+
+    String sql =
+        "SELECT c.name, c.party, v.vote_time " +
+        "FROM votes v " +
+        "JOIN candidates c " +
+        "ON v.candidate_id = c.id " +
+        "WHERE v.voter_email = ?";
+
+
+    ps = con.prepareStatement(sql);
 
     ps.setString(1, email);
 
-    ResultSet rs = ps.executeQuery();
+    rs = ps.executeQuery();
 
-    if(rs.next()){
+
+    if (rs.next()) {
 
         voted = true;
+
+        candidateName =
+            rs.getString("name");
+
+        party =
+            rs.getString("party");
+
+        voteTime =
+            rs.getString("vote_time");
     }
 
-    con.close();
 
-}catch(Exception e){
+} catch (Exception e) {
 
-    e.printStackTrace();
+%>
+
+    <div style="
+        color:red;
+        text-align:center;
+        padding:20px;
+        font-family:Arial;
+    ">
+
+        Database Error:
+        <%= e.getMessage() %>
+
+    </div>
+
+<%
+
+} finally {
+
+
+    try {
+
+        if (rs != null) {
+            rs.close();
+        }
+
+    } catch (Exception ignored) {}
+
+
+    try {
+
+        if (ps != null) {
+            ps.close();
+        }
+
+    } catch (Exception ignored) {}
+
+
+    try {
+
+        if (con != null) {
+            con.close();
+        }
+
+    } catch (Exception ignored) {}
+
 }
 
 %>
 
+
 <!DOCTYPE html>
+
 <html>
 
 <head>
 
     <title>Voting Status</title>
 
+
     <style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial,sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        body{
 
-            height:100vh;
+        body {
 
-            display:flex;
+            min-height: 100vh;
 
-            justify-content:center;
+            display: flex;
 
-            align-items:center;
+            justify-content: center;
+
+            align-items: center;
 
             background:
-            linear-gradient(rgba(0,0,0,0.65),
-            rgba(0,0,0,0.65)),
+            linear-gradient(
+                rgba(0,0,0,0.65),
+                rgba(0,0,0,0.65)
+            ),
             url("img/vote.png");
 
-            background-size:cover;
-            background-position:center;
+            background-size: cover;
+
+            background-position: center;
+
+            padding: 30px;
         }
 
-        .box{
 
-            width:500px;
+        .box {
 
-            background:rgba(255,255,255,0.96);
+            width: 550px;
 
-            padding:45px;
+            max-width: 100%;
 
-            border-radius:18px;
+            background:
+                rgba(255,255,255,0.96);
 
-            text-align:center;
+            padding: 45px;
 
-            box-shadow:0px 15px 40px rgba(0,0,0,0.35);
+            border-radius: 18px;
 
-            animation:fadeIn 0.7s ease;
+            text-align: center;
+
+            box-shadow:
+                0px 15px 40px
+                rgba(0,0,0,0.35);
+
+            animation:
+                fadeIn 0.7s ease;
         }
 
-        @keyframes fadeIn{
 
-            from{
-                opacity:0;
-                transform:translateY(20px);
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(20px);
             }
 
-            to{
-                opacity:1;
-                transform:translateY(0);
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
             }
         }
 
-        .icon{
 
-            font-size:70px;
+        .icon {
 
-            margin-bottom:20px;
+            font-size: 60px;
+
+            margin-bottom: 15px;
         }
 
-        .success{
 
-            color:#28a745;
+        .success {
+
+            color: #28a745;
         }
 
-        .pending{
 
-            color:#ff9800;
+        .pending {
+
+            color: #ff9800;
         }
 
-        h1{
 
-            color:#1e3c72;
+        h1 {
 
-            margin-bottom:20px;
+            color: #1e3c72;
 
-            font-size:34px;
+            margin-bottom: 20px;
+
+            font-size: 32px;
         }
 
-        p{
 
-            font-size:18px;
+        .status-text {
 
-            color:#555;
+            font-size: 18px;
 
-            line-height:1.7;
+            color: #555;
 
-            margin-bottom:30px;
+            line-height: 1.7;
+
+            margin-bottom: 25px;
         }
 
-        .btn{
 
-            display:inline-block;
+        .status-badge {
 
-            padding:14px 28px;
+            display: inline-block;
 
-            background:#1e3c72;
+            padding: 9px 20px;
 
-            color:white;
+            border-radius: 30px;
 
-            text-decoration:none;
+            font-size: 15px;
 
-            border-radius:8px;
+            font-weight: bold;
 
-            font-size:17px;
-
-            transition:0.3s;
+            margin-bottom: 25px;
         }
 
-        .btn:hover{
 
-            background:#16325c;
+        .voted-badge {
 
-            transform:translateY(-2px);
+            background: #dff5e3;
+
+            color: #218838;
+        }
+
+
+        .pending-badge {
+
+            background: #fff3cd;
+
+            color: #d68910;
+        }
+
+
+        .details {
+
+            background: #f4f7ff;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+            text-align: left;
+        }
+
+
+        .detail-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 10px 0;
+
+            border-bottom:
+                1px solid #dfe5ef;
+        }
+
+
+        .detail-row:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .label {
+
+            color: #777;
+
+            font-weight: bold;
+        }
+
+
+        .value {
+
+            color: #1e3c72;
+
+            font-weight: bold;
+
+            text-align: right;
+        }
+
+
+        .warning {
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            border: 1px solid #ffe69c;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 25px;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+        }
+
+
+        .info {
+
+            background: #e8f1ff;
+
+            color: #24558a;
+
+            border: 1px solid #c9ddf7;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 25px;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+        }
+
+
+        .btn {
+
+            display: inline-block;
+
+            padding: 14px 28px;
+
+            background: #1e3c72;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 17px;
+
+            transition: 0.3s;
+        }
+
+
+        .btn:hover {
+
+            background: #16325c;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 20px;
+            }
+
+
+            .box {
+
+                padding: 30px 20px;
+            }
+
+
+            h1 {
+
+                font-size: 26px;
+            }
+
+
+            .detail-row {
+
+                flex-direction: column;
+
+                gap: 4px;
+            }
+
+
+            .value {
+
+                text-align: left;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
+
 
 <div class="box">
 
-    <%
 
-    if(voted){
+<%
 
-    %>
+if (voted) {
 
-        <div class="icon success">
+%>
+
+
+
+
+
+
+    <h1>
+
+        Vote Submitted Successfully
+
+    </h1>
+
+
+    <p class="status-text">
+
+        Thank you for participating in the election.
+
+        <br>
+
+        Your vote has been recorded securely.
+
+    </p>
+
+
+    <div class="details">
+
+
+        <div class="detail-row">
+
+            <span class="label">
+                Voter Email
+            </span>
+
+            <span class="value">
+                <%= email %>
+            </span>
 
         </div>
 
-        <h1>
 
-            Vote Submitted Successfully
+        <div class="detail-row">
 
-        </h1>
+            <span class="label">
+                Candidate
+            </span>
 
-        <p>
-
-            Thank you for participating in the election.
-            <br>
-            Your vote has been recorded securely.
-
-        </p>
-
-    <%
-
-    }else{
-
-    %>
-
-        <div class="icon pending">
-
+            <span class="value">
+                <%= candidateName %>
+            </span>
 
         </div>
 
-        <h1>
 
-            Vote Pending
+        <div class="detail-row">
 
-        </h1>
+            <span class="label">
+                Party
+            </span>
 
-        <p>
+            <span class="value">
+                <%= party %>
+            </span>
 
-            You have not cast your vote yet.
-            <br>
-            Please participate before the election closes.
+        </div>
 
-        </p>
 
-    <%
+        <div class="detail-row">
 
-    }
+            <span class="label">
+                Vote Time
+            </span>
 
-    %>
+            <span class="value">
+                <%= voteTime %>
+            </span>
 
-    <a href="voter-dashboard.jsp" class="btn">
+        </div>
+
+
+    </div>
+
+
+    <div class="warning">
+
+        Your vote has already been submitted.
+
+        <br>
+
+        You cannot cast another vote.
+
+    </div>
+
+
+<%
+
+} else {
+
+%>
+
+
+    <div class="icon pending">
+        !
+    </div>
+
+
+    <div class="status-badge pending-badge">
+
+        NOT VOTED
+
+    </div>
+
+
+    <h1>
+
+        Vote Pending
+
+    </h1>
+
+
+    <p class="status-text">
+
+        You have not cast your vote yet.
+
+        <br>
+
+        Please participate before the election closes.
+
+    </p>
+
+
+    <div class="info">
+
+        You can cast your vote only once.
+        Please review your candidate selection
+        carefully before submitting.
+
+    </div>
+
+
+    <a href="vote.jsp" class="btn">
+
+        Cast Your Vote
+
+    </a>
+
+
+<%
+
+}
+
+%>
+
+
+    <br>
+
+
+    <a href="voter-dashboard.jsp"
+       class="btn"
+       style="margin-top:15px;">
 
         Back To Dashboard
 
     </a>
 
+
 </div>
+
 
 </body>
 

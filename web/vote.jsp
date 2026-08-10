@@ -3,262 +3,844 @@
 <%
 String email = (String) session.getAttribute("email");
 
-if (email == null) {
+if (email == null || email.trim().isEmpty()) {
     response.sendRedirect("login.html");
     return;
 }
 
-/* PREVENT BACK BUTTON + CACHING ISSUES */
+/* Prevent browser caching */
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 response.setHeader("Pragma", "no-cache");
 response.setDateHeader("Expires", 0);
 
-/* OPTIONAL SAFETY: if already voted flag exists */
-String voted = (String) session.getAttribute("voted");
-if ("true".equals(voted)) {
-    response.sendRedirect("vote-success.html");
-    return;
+
+/* =========================================
+   CHECK WHETHER VOTER HAS ALREADY VOTED
+   ========================================= */
+
+boolean hasVoted = false;
+
+Connection checkCon = null;
+PreparedStatement checkPs = null;
+ResultSet checkRs = null;
+
+try {
+
+    Class.forName("com.mysql.cj.jdbc.Driver");
+
+    checkCon = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/votingdb",
+        "root",
+        "adminmyy"
+    );
+
+    checkPs = checkCon.prepareStatement(
+        "SELECT id FROM votes WHERE voter_email = ?"
+    );
+
+    checkPs.setString(1, email);
+
+    checkRs = checkPs.executeQuery();
+
+    if (checkRs.next()) {
+        hasVoted = true;
+    }
+
+} catch (Exception e) {
+
+    out.println(
+        "<div style='color:red;text-align:center;padding:20px;'>" +
+        "Database Error: " +
+        e.getMessage() +
+        "</div>"
+    );
+
+} finally {
+
+    try {
+        if (checkRs != null) checkRs.close();
+    } catch (Exception ignored) {}
+
+    try {
+        if (checkPs != null) checkPs.close();
+    } catch (Exception ignored) {}
+
+    try {
+        if (checkCon != null) checkCon.close();
+    } catch (Exception ignored) {}
 }
 
-/* Error / status messages */
-String already = request.getParameter("already");
+
 String error = request.getParameter("error");
 %>
 
+
 <!DOCTYPE html>
+
 <html>
 
 <head>
-    <title>Cast Vote - Online Voting System</title>
+
+    <title>Cast Your Vote</title>
+
 
     <style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial,sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        body{
+
+        body {
+
+            min-height: 100vh;
+
+            padding: 40px;
+
             background:
-            linear-gradient(rgba(0,0,0,0.65),
-            rgba(0,0,0,0.65)),
+            linear-gradient(
+                rgba(0,0,0,0.65),
+                rgba(0,0,0,0.65)
+            ),
             url("img/vote.png");
 
-            background-size:cover;
-            background-position:center;
+            background-size: cover;
 
-            min-height:100vh;
-            padding:40px;
+            background-position: center;
         }
 
-        .container{
-            width:80%;
-            max-width:1000px;
-            margin:auto;
-            background:rgba(255,255,255,0.96);
-            padding:40px;
-            border-radius:18px;
-            box-shadow:0px 0px 20px rgba(0,0,0,0.4);
+
+        /* =========================
+           LOGOUT
+           ========================= */
+
+        .logout {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 25px;
+
+            background: #cc0000;
+
+            color: white;
+
+            padding: 11px 22px;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            font-size: 16px;
         }
 
-        h1{
-            text-align:center;
-            color:#1e3c72;
-            margin-bottom:35px;
-            font-size:48px;
+
+        .logout:hover {
+
+            background: #990000;
         }
 
-        .info{
-            text-align:center;
-            font-size:18px;
-            color:#555;
-            margin-bottom:20px;
+
+        /* =========================
+           MAIN CONTAINER
+           ========================= */
+
+        .container {
+
+            width: 80%;
+
+            max-width: 1000px;
+
+            margin: 50px auto;
+
+            background: rgba(255,255,255,0.96);
+
+            padding: 40px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 0 20px
+                rgba(0,0,0,0.4);
         }
 
-        .error{
-            color:red;
-            text-align:center;
-            margin:10px 0;
-            font-size:18px;
-            font-weight:bold;
+
+        h1 {
+
+            text-align: center;
+
+            color: #1e3c72;
+
+            margin-bottom: 15px;
+
+            font-size: 45px;
         }
 
-        form{
-            margin-top:20px;
+
+        .info {
+
+            text-align: center;
+
+            font-size: 18px;
+
+            color: #555;
+
+            margin-bottom: 25px;
+
+            line-height: 1.6;
         }
 
-        .candidate{
-            background:#f4f7ff;
-            border:2px solid #d6dff5;
-            padding:25px;
-            margin-bottom:25px;
-            border-radius:14px;
+
+        /* =========================
+           WARNING
+           ========================= */
+
+        .warning {
+
+            background: #fff3cd;
+
+            border: 1px solid #ffe69c;
+
+            color: #856404;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+            font-size: 16px;
+
+            line-height: 1.5;
         }
 
-        .candidate label{
-            display:flex;
-            align-items:flex-start;
-            cursor:pointer;
+
+        /* =========================
+           ERROR
+           ========================= */
+
+        .error {
+
+            background: #f8d7da;
+
+            border: 1px solid #f5c2c7;
+
+            color: #842029;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+            font-size: 17px;
+
+            font-weight: bold;
         }
 
-        .candidate input{
-            margin-right:18px;
-            margin-top:8px;
-            transform:scale(1.3);
+
+        /* =========================
+           CANDIDATE
+           ========================= */
+
+        .candidate {
+
+            background: #f4f7ff;
+
+            border: 2px solid #d6dff5;
+
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            border-radius: 14px;
+
+            transition: 0.3s;
         }
 
-        .candidate-details h2{
-            color:#1e3c72;
-            margin-bottom:10px;
-            font-size:30px;
+
+        .candidate:hover {
+
+            border-color: #1e3c72;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 5px 15px
+                rgba(30,60,114,0.15);
         }
 
-        .candidate-details p{
-            font-size:18px;
-            color:#444;
-            margin-bottom:8px;
+
+        .candidate label {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            cursor: pointer;
         }
 
-        .btn-box{
-            text-align:center;
-            margin-top:35px;
+
+        .candidate input {
+
+            margin-right: 18px;
+
+            margin-top: 8px;
+
+            width: 20px;
+
+            height: 20px;
+
+            cursor: pointer;
         }
 
-        .btn{
-            padding:15px 35px;
-            background:#1e3c72;
-            color:white;
-            border:none;
-            border-radius:8px;
-            font-size:20px;
-            cursor:pointer;
+
+        .candidate-details h2 {
+
+            color: #1e3c72;
+
+            margin-bottom: 10px;
+
+            font-size: 28px;
         }
 
-        .btn:hover{
-            background:#16325c;
+
+        .candidate-details p {
+
+            font-size: 17px;
+
+            color: #444;
+
+            margin-bottom: 6px;
         }
 
-        .back{
-            display:inline-block;
-            margin-top:20px;
-            text-decoration:none;
-            color:#1e3c72;
-            font-size:18px;
-            font-weight:bold;
+
+        /* =========================
+           BUTTON
+           ========================= */
+
+        .btn-box {
+
+            text-align: center;
+
+            margin-top: 30px;
         }
 
-        .back:hover{
-            text-decoration:underline;
+
+        .btn {
+
+            padding: 14px 35px;
+
+            background: #1e3c72;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 19px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .btn:hover {
+
+            background: #16325c;
+
+            transform: translateY(-2px);
+        }
+
+
+        .back {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            text-decoration: none;
+
+            color: #1e3c72;
+
+            font-size: 17px;
+
+            font-weight: bold;
+        }
+
+
+        .back:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           ALREADY VOTED
+           ========================= */
+
+        .already-voted {
+
+            text-align: center;
+
+            padding: 30px;
+        }
+
+
+        .already-icon {
+
+            font-size: 75px;
+
+            color: #28a745;
+
+            margin-bottom: 15px;
+        }
+
+
+        .already-voted h1 {
+
+            margin-bottom: 20px;
+        }
+
+
+        .already-voted p {
+
+            color: #555;
+
+            font-size: 19px;
+
+            line-height: 1.7;
+
+            margin-bottom: 10px;
+        }
+
+
+        .status-btn {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 14px 28px;
+
+            background: #1e3c72;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 17px;
+        }
+
+
+        .status-btn:hover {
+
+            background: #16325c;
+        }
+
+
+        @media(max-width:700px) {
+
+            body {
+
+                padding: 20px;
+            }
+
+
+            .container {
+
+                width: 100%;
+
+                padding: 25px;
+            }
+
+
+            h1 {
+
+                font-size: 32px;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
+
+
+<a href="LogoutServlet" class="logout">
+
+    Logout
+
+</a>
+
 
 <div class="container">
 
-    <h1>Cast Your Vote</h1>
-
-    <div class="info">
-        Select one candidate carefully. Once submitted, your vote cannot be changed.
-    </div>
-
-    <% if ("1".equals(already)) { %>
-        <div class="error">You have already voted. Multiple voting is not allowed.</div>
-    <% } %>
-
-    <% if ("select".equals(error)) { %>
-        <div class="error">Please select a candidate before submitting.</div>
-    <% } %>
-
-    <form action="VoteServlet" method="post">
 
 <%
-Connection con = null;
-Statement st = null;
-ResultSet rs = null;
+/* =========================================
+   IF ALREADY VOTED
+   ========================================= */
 
-try {
-    Class.forName("com.mysql.cj.jdbc.Driver");
+if (hasVoted) {
 
-    con = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/votingdb",
-            "root",
-            "myadmin"
-    );
-
-    st = con.createStatement();
-    rs = st.executeQuery("SELECT * FROM candidates");
-
-    while (rs.next()) {
 %>
+
+
+    <div class="already-voted">
+
+
+      
+
+        <h1>
+
+            Vote Already Cast
+
+        </h1>
+
+
+        <p>
+
+            You have already submitted your vote.
+
+        </p>
+
+
+        <p>
+
+            You cannot cast another vote.
+
+        </p>
+
+
+        <p>
+
+            Your vote has been recorded securely.
+
+        </p>
+
+
+        <a
+            href="status.jsp"
+            class="status-btn"
+        >
+
+            View Voting Status
+
+        </a>
+
+
+        <br>
+
+
+        <a
+            href="voter-dashboard.jsp"
+            class="back"
+        >
+
+            Back To Dashboard
+
+        </a>
+
+
+    </div>
+
+
+<%
+
+} else {
+
+%>
+
+
+    <!-- =========================
+         VOTING FORM
+         ========================= -->
+
+
+    <h1>
+
+        Cast Your Vote
+
+    </h1>
+
+
+    <div class="info">
+
+        Select your preferred candidate
+        and submit your vote securely.
+
+    </div>
+
+
+    <div class="warning">
+
+        <b>Important:</b>
+
+        You can vote only once.
+
+        Once your vote is submitted,
+        it cannot be changed.
+
+        Please check your selection
+        carefully before submitting.
+
+    </div>
+
+
+    <% if ("select".equals(error)) { %>
+
+        <div class="error">
+
+            Please select a candidate
+            before submitting your vote.
+
+        </div>
+
+    <% } %>
+
+
+    <% if ("invalid".equals(error)) { %>
+
+        <div class="error">
+
+            Invalid candidate selected.
+            Please try again.
+
+        </div>
+
+    <% } %>
+
+
+    <form
+        action="VoteServlet"
+        method="post"
+        onsubmit="return confirmVote();"
+    >
+
+
+        <%
+
+        Connection con = null;
+
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+
+
+        try {
+
+            Class.forName(
+                "com.mysql.cj.jdbc.Driver"
+            );
+
+
+            con = DriverManager.getConnection(
+
+                "jdbc:mysql://localhost:3306/votingdb",
+
+                "root",
+
+                "adminmyy"
+            );
+
+
+            ps = con.prepareStatement(
+
+                "SELECT id, name, party, age " +
+                "FROM candidates " +
+                "ORDER BY id"
+
+            );
+
+
+            rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+        %>
+
 
         <div class="candidate">
 
+
             <label>
 
-                <input type="radio"
-                       name="candidate"
-                       value="<%= rs.getInt("id") %>"
-                       required>
+
+                <!--
+                    IMPORTANT:
+                    The name must be candidateId
+                -->
+
+                <input
+                    type="radio"
+                    name="candidateId"
+                    value="<%= rs.getInt("id") %>"
+                    required
+                >
+
 
                 <div class="candidate-details">
 
-                    <h2><%= rs.getString("name") %></h2>
 
-                    <p><b>Party:</b> <%= rs.getString("party") %></p>
+                    <h2>
 
-                    <p><b>Age:</b> <%= rs.getInt("age") %></p>
+                        <%= rs.getString("name") %>
+
+                    </h2>
+
+
+                    <p>
+
+                        <b>Party:</b>
+
+                        <%= rs.getString("party") %>
+
+                    </p>
+
+
+                    <p>
+
+                        <b>Age:</b>
+
+                        <%= rs.getInt("age") %>
+
+                    </p>
+
 
                 </div>
 
+
             </label>
+
 
         </div>
 
-<%
-    }
 
-} catch (Exception e) {
-%>
+        <%
 
-    <div class="error">
-        Failed to load candidates.
-    </div>
+            }
 
-<%
-    e.printStackTrace();
+        } catch (Exception e) {
 
-} finally {
+        %>
 
-    try { if (rs != null) rs.close(); } catch (Exception ignored) {}
-    try { if (st != null) st.close(); } catch (Exception ignored) {}
-    try { if (con != null) con.close(); } catch (Exception ignored) {}
 
-}
-%>
+            <div class="error">
+
+                Failed to load candidates.
+
+                <br><br>
+
+                <%= e.getMessage() %>
+
+            </div>
+
+
+        <%
+
+        } finally {
+
+
+            try {
+
+                if (rs != null) rs.close();
+
+            } catch (Exception ignored) {}
+
+
+            try {
+
+                if (ps != null) ps.close();
+
+            } catch (Exception ignored) {}
+
+
+            try {
+
+                if (con != null) con.close();
+
+            } catch (Exception ignored) {}
+
+        }
+
+        %>
+
 
         <div class="btn-box">
 
-            <button type="submit" class="btn">
+
+            <button
+                type="submit"
+                class="btn"
+            >
+
                 Submit Vote
+
             </button>
+
 
             <br>
 
-            <a href="voter-dashboard.jsp" class="back">
+
+            <a
+                href="voter-dashboard.jsp"
+                class="back"
+            >
+
                 Back To Dashboard
+
             </a>
+
 
         </div>
 
+
     </form>
+
+
+<%
+
+}
+
+%>
+
 
 </div>
 
+
+<script>
+
+function confirmVote() {
+
+    return confirm(
+        "Are you sure you want to submit your vote?\n\n" +
+        "Your vote cannot be changed after submission."
+    );
+
+}
+
+</script>
+
+
 </body>
+
 </html>

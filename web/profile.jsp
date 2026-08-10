@@ -12,7 +12,13 @@ if (email == null || email.trim().isEmpty()) {
     return;
 }
 
-String name = "", mobile = "", dob = "", gender = "", voterid = "", aadhaar = "", address = "";
+String name = "";
+String mobile = "";
+String dob = "";
+String gender = "";
+String voterid = "";
+String aadhaar = "";
+String address = "";
 
 Connection con = null;
 PreparedStatement ps = null;
@@ -23,12 +29,15 @@ try {
     Class.forName("com.mysql.cj.jdbc.Driver");
 
     con = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/votingdb",
-            "root",
-            "myadmin"
+        "jdbc:mysql://localhost:3306/votingdb",
+        "root",
+        "adminmyy"
     );
 
-    ps = con.prepareStatement("SELECT * FROM voters WHERE email=?");
+    ps = con.prepareStatement(
+        "SELECT * FROM voters WHERE email=?"
+    );
+
     ps.setString(1, email);
 
     rs = ps.executeQuery();
@@ -44,129 +53,777 @@ try {
         address = rs.getString("address");
 
     } else {
+
         response.sendRedirect("login.html?error=1");
         return;
     }
 
 } catch (Exception e) {
-    e.printStackTrace();
-}
 
-finally {
-    try { if (rs != null) rs.close(); } catch(Exception ignored){}
-    try { if (ps != null) ps.close(); } catch(Exception ignored){}
-    try { if (con != null) con.close(); } catch(Exception ignored){}
+    e.printStackTrace();
+
+} finally {
+
+    try {
+        if (rs != null) rs.close();
+    } catch(Exception ignored) {}
+
+    try {
+        if (ps != null) ps.close();
+    } catch(Exception ignored) {}
+
+    try {
+        if (con != null) con.close();
+    } catch(Exception ignored) {}
 }
 %>
 
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>My Profile</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>My Profile - Online Voting System</title>
+
 
 <style>
 
-body{
-    margin:0;
-    font-family:Arial;
-    background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-    url("img/slide2.png");
-    background-size:cover;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
 }
 
-/* TOP BUTTON */
-.top-btn{
-    position:fixed;
-    top:20px;
-    right:20px;
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef5fb,
+            #f8fbff
+        );
+
+    color: #26384d;
 }
 
-.top-btn a{
-    background:#1e3c72;
-    color:white;
-    padding:10px 15px;
-    text-decoration:none;
-    border-radius:8px;
-    font-weight:bold;
-    transition:0.3s;
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    background:
+        linear-gradient(
+            135deg,
+            #173f73,
+            #2868a8
+        );
+
+    color: white;
+
+    padding: 18px 6%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.15);
 }
 
-.top-btn a:hover{
-    background:#16325c;
+.logo {
+    font-size: 22px;
+    font-weight: bold;
 }
 
-/* CARD */
-.card{
-    width:420px;
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 0 25px rgba(0,0,0,0.4);
+.dashboard-btn {
+    text-decoration: none;
+    color: white;
+
+    background: rgba(255,255,255,0.15);
+
+    padding: 10px 18px;
+
+    border-radius: 7px;
+
+    transition: 0.3s;
 }
 
-/* TITLE */
-h2{
-    text-align:center;
-    color:#1e3c72;
-    margin-bottom:20px;
+.dashboard-btn:hover {
+    background: rgba(255,255,255,0.28);
 }
 
-/* FIELD */
-.row{
-    margin:12px 0;
-    padding:10px;
-    background:#f4f6ff;
-    border-left:5px solid #1e3c72;
-    border-radius:6px;
+
+/* =========================
+   MAIN
+========================= */
+
+.container {
+    width: 92%;
+    max-width: 950px;
+
+    margin: 45px auto;
 }
 
-.label{
-    font-weight:bold;
-    color:#1e3c72;
+
+/* =========================
+   PROFILE CARD
+========================= */
+
+.profile-card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 35px rgba(31,62,100,0.13);
 }
 
-.value{
-    color:#333;
+
+/* =========================
+   PROFILE TOP
+========================= */
+
+.profile-top {
+
+    background:
+        linear-gradient(
+            135deg,
+            #173f73,
+            #2868a8
+        );
+
+    color: white;
+
+    padding: 38px 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
 }
 
-/* EMAIL BOX */
-.email-box{
-    text-align:center;
-    margin-bottom:15px;
-    color:#555;
+
+/* AVATAR */
+
+.avatar {
+
+    width: 82px;
+    height: 82px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.18);
+
+    border:
+        2px solid rgba(255,255,255,0.5);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 40px;
+
+    flex-shrink: 0;
+}
+
+
+.profile-info h1 {
+
+    margin: 0 0 7px 0;
+
+    font-size: 27px;
+}
+
+.profile-info p {
+
+    margin: 4px 0;
+
+    opacity: 0.88;
+
+    font-size: 14px;
+}
+
+
+/* ACTIVE BADGE */
+
+.active-badge {
+
+    display: inline-block;
+
+    margin-top: 9px;
+
+    padding: 5px 13px;
+
+    border-radius: 20px;
+
+    background: #d9fbe5;
+
+    color: #15803d;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   DETAILS
+========================= */
+
+.details {
+
+    padding: 35px;
+}
+
+
+.section-title {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 23px;
+}
+
+
+.section-title h2 {
+
+    margin: 0;
+
+    color: #173f73;
+
+    font-size: 20px;
+}
+
+
+.section-title span {
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.details-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 17px;
+}
+
+
+/* =========================
+   INFORMATION BOX
+========================= */
+
+.info-box {
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e9ef;
+
+    border-radius: 11px;
+
+    padding: 17px;
+
+    transition: all 0.25s ease;
+}
+
+.info-box:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,0.07);
+
+    border-color: #b9cfe5;
+}
+
+
+.info-label {
+
+    display: block;
+
+    font-size: 11px;
+
+    color: #7b8490;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+
+    margin-bottom: 7px;
+}
+
+
+.info-value {
+
+    display: block;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #26384d;
+
+    word-break: break-word;
+}
+
+
+/* =========================
+   VOTER ID
+========================= */
+
+.highlight {
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef6ff,
+            #f7fbff
+        );
+
+    border:
+        1px solid #b8d3ec;
+}
+
+
+.highlight .info-value {
+
+    color: #1f5f94;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================
+   ADDRESS
+========================= */
+
+.address {
+
+    grid-column: 1 / -1;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+
+    padding: 0 35px 35px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+}
+
+
+.btn {
+
+    text-decoration: none;
+
+    padding: 11px 22px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.25s;
+}
+
+
+.back-btn {
+
+    background: #2868a8;
+
+    color: white;
+}
+
+
+.back-btn:hover {
+
+    background: #173f73;
+
+    transform: translateY(-2px);
+}
+
+
+.logout-btn {
+
+    background: #f1f3f5;
+
+    color: #4a5562;
+}
+
+
+.logout-btn:hover {
+
+    background: #e4e7eb;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+
+    .header {
+
+        padding: 16px 5%;
+    }
+
+    .logo {
+
+        font-size: 18px;
+    }
+
+    .dashboard-btn {
+
+        padding: 8px 12px;
+
+        font-size: 13px;
+    }
+
+    .container {
+
+        width: 94%;
+
+        margin: 25px auto;
+    }
+
+    .profile-top {
+
+        padding: 30px 20px;
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    .details {
+
+        padding: 22px;
+    }
+
+    .details-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .address {
+
+        grid-column: auto;
+    }
+
+    .section-title {
+
+        display: block;
+    }
+
+    .section-title span {
+
+        display: block;
+
+        margin-top: 5px;
+    }
+
+    .actions {
+
+        padding: 0 22px 25px;
+
+        flex-direction: column;
+    }
+
+    .btn {
+
+        text-align: center;
+    }
+
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<!-- BACK BUTTON -->
-<div class="top-btn">
-    <a href="voter-dashboard.jsp">Back to Dashboard</a>
-</div>
 
-<div class="card">
+<!-- =========================
+     HEADER
+========================= -->
 
-<h2>My Profile</h2>
+<div class="header">
 
-<div class="email-box">
-    Logged in as: <b><%= email %></b>
-</div>
+    <div class="logo">
+        🗳️ Online Voting System
+    </div>
 
-<div class="row"><span class="label">Name:</span> <span class="value"><%= name %></span></div>
-<div class="row"><span class="label">Mobile:</span> <span class="value"><%= mobile %></span></div>
-<div class="row"><span class="label">DOB:</span> <span class="value"><%= dob %></span></div>
-<div class="row"><span class="label">Gender:</span> <span class="value"><%= gender %></span></div>
-<div class="row"><span class="label">Voter ID:</span> <span class="value"><%= voterid %></span></div>
-<div class="row"><span class="label">Aadhaar:</span> <span class="value"><%= aadhaar %></span></div>
-<div class="row"><span class="label">Address:</span> <span class="value"><%= address %></span></div>
+
+    <a href="voter-dashboard.jsp"
+       class="dashboard-btn">
+
+        Dashboard
+
+    </a>
 
 </div>
+
+
+
+<!-- =========================
+     MAIN PROFILE
+========================= -->
+
+<div class="container">
+
+
+    <div class="profile-card">
+
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-top">
+
+
+            <div class="avatar">
+                👤
+            </div>
+
+
+            <div class="profile-info">
+
+                <h1>
+                    <%= name %>
+                </h1>
+
+                <p>
+                    <%= email %>
+                </p>
+
+                <span class="active-badge">
+                    ● Active Voter
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- DETAILS -->
+
+        <div class="details">
+
+
+            <div class="section-title">
+
+                <h2>
+                    Personal Information
+                </h2>
+
+                <span>
+                    Registered Voter Details
+                </span>
+
+            </div>
+
+
+
+            <div class="details-grid">
+
+
+                <!-- NAME -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Full Name
+                    </span>
+
+                    <span class="info-value">
+                        <%= name %>
+                    </span>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Email Address
+                    </span>
+
+                    <span class="info-value">
+                        <%= email %>
+                    </span>
+
+                </div>
+
+
+                <!-- MOBILE -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Mobile Number
+                    </span>
+
+                    <span class="info-value">
+                        <%= mobile %>
+                    </span>
+
+                </div>
+
+
+                <!-- DOB -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Date of Birth
+                    </span>
+
+                    <span class="info-value">
+                        <%= dob %>
+                    </span>
+
+                </div>
+
+
+                <!-- GENDER -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Gender
+                    </span>
+
+                    <span class="info-value">
+                        <%= gender %>
+                    </span>
+
+                </div>
+
+
+                <!-- VOTER ID -->
+
+                <div class="info-box highlight">
+
+                    <span class="info-label">
+                        Voter ID
+                    </span>
+
+                    <span class="info-value">
+                        <%= voterid %>
+                    </span>
+
+                </div>
+
+
+                <!-- AADHAAR -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Aadhaar Number
+                    </span>
+
+                    <span class="info-value">
+                        <%= aadhaar %>
+                    </span>
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="info-box address">
+
+                    <span class="info-label">
+                        Address
+                    </span>
+
+                    <span class="info-value">
+                        <%= address %>
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="actions">
+
+
+            <a href="voter-dashboard.jsp"
+               class="btn back-btn">
+
+                ← Back to Dashboard
+
+            </a>
+
+
+            <a href="logout.html"
+               class="btn logout-btn">
+
+                Logout
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
 
 </body>
+
 </html>

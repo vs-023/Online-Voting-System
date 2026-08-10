@@ -36,7 +36,7 @@ public class ForgotPasswordServlet extends HttpServlet {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/votingdb",
                     "root",
-                    "myadmin"
+                    "adminmyy"
             );
 
             // CHECK USER EXISTS

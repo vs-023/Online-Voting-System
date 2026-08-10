@@ -34,7 +34,7 @@ public class CandidateServlet extends HttpServlet {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/votingdb",
                     "root",
-                    "myadmin"
+                    "adminmyy"
             );
 
             PreparedStatement ps = con.prepareStatement(

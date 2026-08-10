@@ -24,7 +24,7 @@ public class RequestServlet extends HttpServlet {
             try (Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/votingdb",
                     "root",
-                    "myadmin"
+                    "adminmyy"
             )) {
                 PreparedStatement ps = con.prepareStatement(
                         "INSERT INTO requests(user_email, request_type, message) VALUES(?,?,?)"

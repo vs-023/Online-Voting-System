@@ -66,7 +66,7 @@ public class VerifyOtpServlet extends HttpServlet {
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/votingdb",
                     "root",
-                    "myadmin"
+                    "adminmyy"
             );
 
             // =========================

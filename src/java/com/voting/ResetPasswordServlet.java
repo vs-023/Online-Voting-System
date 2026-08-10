@@ -69,7 +69,7 @@ public class ResetPasswordServlet extends HttpServlet {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/votingdb",
                     "root",
-                    "myadmin"
+                    "adminmyy"
             );
 
             ps = con.prepareStatement(

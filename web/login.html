@@ -1,292 +1,642 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Login - Online Voting System</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial,sans-serif;
-        }
+<title>Login</title>
 
-        body{
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background:
-            linear-gradient(rgba(0,0,0,0.6),
-            rgba(0,0,0,0.6)),
-            url("img/vote.png");
-            background-size:cover;
-            background-position:center;
-        }
+<style>
 
-        /* ✅ HOME BUTTON (ADDED ONLY THIS) */
-        .home-btn{
-            position:fixed;
-            top:20px;
-            right:20px;
-            background:#1e3c72;
-            color:white;
-            padding:10px 18px;
-            border-radius:8px;
-            text-decoration:none;
-            font-size:14px;
-            font-weight:bold;
-            transition:0.3s;
-            z-index:1000;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
 
-        .home-btn:hover{
-            background:#16325c;
-        }
+body{
 
-        .container{
-            width:420px;
-            background:rgba(255,255,255,0.97);
-            padding:35px;
-            border-radius:16px;
-            box-shadow:0px 15px 40px rgba(0,0,0,0.4);
-            animation:fadeIn 0.6s ease;
-        }
+    height:100vh;
 
-        @keyframes fadeIn{
-            from{
-                transform:translateY(20px);
-                opacity:0;
-            }
-            to{
-                transform:translateY(0);
-                opacity:1;
-            }
-        }
+    display:flex;
 
-        h2{
-            text-align:center;
-            color:#1e3c72;
-            margin-bottom:20px;
-            font-size:32px;
-        }
+    justify-content:center;
 
-        .top-error{
-            display:none;
-            padding:12px;
-            margin-bottom:15px;
-            border-radius:8px;
-            text-align:center;
-            font-size:14px;
-            font-weight:bold;
-        }
+    align-items:center;
 
-        .error{
-            background:#ffe5e5;
-            color:red;
-        }
+    background:
+    linear-gradient(
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.6)
+    ),
+    url("img/vote.png");
 
-        .success{
-            background:#e6ffed;
-            color:green;
-        }
+    background-size:cover;
 
-        label{
-            color:#333;
-            font-size:14px;
-            font-weight:bold;
-        }
+    background-position:center;
+}
 
-        input,select{
-            width:100%;
-            padding:12px;
-            margin-top:6px;
-            margin-bottom:18px;
-            border:1px solid #ccc;
-            border-radius:8px;
-            transition:0.3s;
-        }
 
-        input:focus,
-        select:focus{
-            border-color:#1e3c72;
-            outline:none;
-            box-shadow:0 0 6px rgba(30,60,114,0.3);
-        }
+/* HOME BUTTON */
 
-        button{
-            width:100%;
-            padding:13px;
-            background:#1e3c72;
-            color:white;
-            border:none;
-            border-radius:8px;
-            font-size:16px;
-            cursor:pointer;
-            transition:0.3s;
-        }
+.home-btn{
 
-        button:hover{
-            background:#16325c;
-            transform:translateY(-2px);
-        }
+    position:fixed;
 
-        .register{
-            text-align:center;
-            margin-top:18px;
-            font-size:14px;
-        }
+    top:20px;
 
-        .register a{
-            color:#1e3c72;
-            text-decoration:none;
-            font-weight:bold;
-        }
+    right:20px;
 
-        .register a:hover{
-            text-decoration:underline;
-        }
+    background:#1e3c72;
 
-        .forgot{
-            text-align:center;
-            margin-top:12px;
-        }
+    color:white;
 
-        .forgot a{
-            color:#cc0000;
-            text-decoration:none;
-            font-weight:bold;
-            font-size:14px;
-        }
+    padding:10px 18px;
 
-        .forgot a:hover{
-            text-decoration:underline;
-        }
+    border-radius:8px;
 
-        .hint{
-            font-size:12px;
-            color:#777;
-            margin-top:-12px;
-            margin-bottom:12px;
-        }
-    </style>
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+    z-index:1000;
+}
+
+
+.home-btn:hover{
+
+    background:#16325c;
+}
+
+
+/* CONTAINER */
+
+.container{
+
+    width:420px;
+
+    background:rgba(255,255,255,0.97);
+
+    padding:35px;
+
+    border-radius:16px;
+
+    box-shadow:
+        0px 15px 40px
+        rgba(0,0,0,0.4);
+
+    animation:fadeIn 0.6s ease;
+}
+
+
+@keyframes fadeIn{
+
+    from{
+
+        transform:translateY(20px);
+
+        opacity:0;
+    }
+
+    to{
+
+        transform:translateY(0);
+
+        opacity:1;
+    }
+}
+
+
+h2{
+
+    text-align:center;
+
+    color:#1e3c72;
+
+    margin-bottom:20px;
+
+    font-size:32px;
+}
+
+
+/* MESSAGE */
+
+.top-error{
+
+    display:none;
+
+    padding:12px;
+
+    margin-bottom:15px;
+
+    border-radius:8px;
+
+    text-align:center;
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+
+.error{
+
+    background:#ffe5e5;
+
+    color:red;
+}
+
+
+.success{
+
+    background:#e6ffed;
+
+    color:green;
+}
+
+
+/* LABELS */
+
+label{
+
+    color:#333;
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+
+/* INPUT */
+
+input,
+select{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:6px;
+
+    margin-bottom:18px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    transition:0.3s;
+}
+
+
+input:focus,
+select:focus{
+
+    border-color:#1e3c72;
+
+    outline:none;
+
+    box-shadow:
+        0 0 6px
+        rgba(30,60,114,0.3);
+}
+
+
+/* BUTTON */
+
+button{
+
+    width:100%;
+
+    padding:13px;
+
+    background:#1e3c72;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+
+button:hover{
+
+    background:#16325c;
+
+    transform:translateY(-2px);
+}
+
+
+/* REGISTER */
+
+.register{
+
+    text-align:center;
+
+    margin-top:18px;
+
+    font-size:14px;
+}
+
+
+.register a{
+
+    color:#1e3c72;
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+
+.register a:hover{
+
+    text-decoration:underline;
+}
+
+
+/* FORGOT */
+
+.forgot{
+
+    text-align:center;
+
+    margin-top:12px;
+}
+
+
+.forgot a{
+
+    color:#cc0000;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    font-size:14px;
+}
+
+
+.forgot a:hover{
+
+    text-decoration:underline;
+}
+
+
+/* HINT */
+
+.hint{
+
+    font-size:12px;
+
+    color:#777;
+
+    margin-top:-12px;
+
+    margin-bottom:12px;
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-<!-- ✅ HOME BUTTON ADDED -->
-<a href="home.html" class="home-btn">Home</a>
+
+<!-- HOME -->
+
+<a href="home.html" class="home-btn">
+
+    Home
+
+</a>
+
+
 
 <div class="container">
 
-    <h2>Login</h2>
 
-    <div class="top-error" id="topError"></div>
+<h2>
 
-    <form action="LoginServlet"
-          method="post"
-          onsubmit="return validateForm()">
+    Login
 
-        <label>User Type</label>
+</h2>
 
-        <select name="usertype" required>
 
-            <option value="">Select</option>
 
-            <option value="admin">Admin</option>
+<div class="top-error" id="topError"></div>
 
-            <option value="voter">Voter</option>
 
-        </select>
 
-        <label>Email / Username</label>
+<form
+    action="LoginServlet"
+    method="post"
+    onsubmit="return validateForm()"
+>
 
-        <input type="text"
-               name="email"
-               placeholder="Enter Email (Voter) or Username (Admin)"
-               required>
 
-        <label>Password</label>
+    <!-- USER TYPE -->
 
-        <input type="password"
-               id="password"
-               name="password"
-               required>
+    <label>
 
-        <div class="hint">
-            Enter your account password
-        </div>
+        User Type
 
-        <button type="submit">
-            Login
-        </button>
+    </label>
 
-    </form>
 
-    <div class="register">
-        Not registered?
-        <a href="register.html">Create an account</a>
+    <select
+        name="usertype"
+        id="usertype"
+        required
+        onchange="changeLoginType()"
+    >
+
+        <option value="">
+
+            Select
+
+        </option>
+
+
+        <option value="admin">
+
+            Admin
+
+        </option>
+
+
+        <option value="voter">
+
+            Voter
+
+        </option>
+
+    </select>
+
+
+
+    <!-- USERNAME / EMAIL -->
+
+    <label id="emailLabel">
+
+        Email / Username
+
+    </label>
+
+
+    <input
+        type="text"
+        name="email"
+        id="email"
+        placeholder="Enter Email or Username"
+        required
+    >
+
+
+
+    <!-- PASSWORD -->
+
+    <label>
+
+        Password
+
+    </label>
+
+
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter Password"
+        required
+    >
+
+
+    <div class="hint">
+
+        Enter your account password
+
     </div>
 
-    <div class="forgot">
-        <a href="forgot-password.html">Forgot Password?</a>
-    </div>
+
+
+    <!-- LOGIN -->
+
+    <button type="submit">
+
+        Login
+
+    </button>
+
+
+</form>
+
+
+
+<!-- VOTER REGISTRATION ONLY -->
+
+<div
+    class="register"
+    id="registerSection"
+>
+
+    Not registered?
+
+    <a href="register.html">
+
+        Create Voter Account
+
+    </a>
 
 </div>
 
+
+
+<!-- FORGOT PASSWORD -->
+
+<div class="forgot">
+
+    <a href="forgot-password.html">
+
+        Forgot Password?
+
+    </a>
+
+</div>
+
+
+</div>
+
+
+
 <script>
+
+
+function changeLoginType(){
+
+    var type =
+        document.getElementById("usertype").value;
+
+
+    var email =
+        document.getElementById("email");
+
+
+    var label =
+        document.getElementById("emailLabel");
+
+
+    var register =
+        document.getElementById("registerSection");
+
+
+    if(type === "admin"){
+
+        label.innerHTML =
+            "Admin Username";
+
+
+        email.placeholder =
+            "Enter Admin Username";
+
+
+        /*
+         * IMPORTANT:
+         * Admin registration is NOT available.
+         */
+
+        register.innerHTML =
+            "Admin accounts are pre-registered.";
+
+    }
+
+
+    else if(type === "voter"){
+
+        label.innerHTML =
+            "Voter Email";
+
+
+        email.placeholder =
+            "Enter your registered email";
+
+
+        register.innerHTML =
+            'Not registered? ' +
+            '<a href="register.html">' +
+            'Create Voter Account' +
+            '</a>';
+
+    }
+
+
+    else{
+
+        label.innerHTML =
+            "Email / Username";
+
+
+        email.placeholder =
+            "Enter Email or Username";
+
+
+        register.innerHTML =
+            'Not registered? ' +
+            '<a href="register.html">' +
+            'Create Voter Account' +
+            '</a>';
+
+    }
+
+}
+
+
 
 function validateForm(){
 
-    const pass =
-        document.getElementById("password").value;
+    var type =
+        document.getElementById("usertype").value;
 
-    if(pass.trim() === ""){
 
-        showError("Password cannot be empty");
+    var email =
+        document.getElementById("email").value.trim();
+
+
+    var password =
+        document.getElementById("password").value.trim();
+
+
+    var error =
+        document.getElementById("topError");
+
+
+    error.style.display = "none";
+
+
+    if(type === ""){
+
+        error.innerHTML =
+            "Please select User Type.";
+
+        error.className =
+            "top-error error";
+
+        error.style.display =
+            "block";
 
         return false;
     }
 
+
+    if(email === ""){
+
+        error.innerHTML =
+            "Please enter your email or username.";
+
+        error.className =
+            "top-error error";
+
+        error.style.display =
+            "block";
+
+        return false;
+    }
+
+
+    if(password === ""){
+
+        error.innerHTML =
+            "Please enter your password.";
+
+        error.className =
+            "top-error error";
+
+        error.style.display =
+            "block";
+
+        return false;
+    }
+
+
     return true;
-}
 
-const params =
-    new URLSearchParams(window.location.search);
-
-const errorBox =
-    document.getElementById("topError");
-
-if(params.get("error") === "1"){
-
-    errorBox.style.display = "block";
-    errorBox.classList.add("error");
-    errorBox.innerText = "Incorrect email or password";
-}
-
-if(params.get("error") === "2"){
-
-    errorBox.style.display = "block";
-    errorBox.classList.add("error");
-    errorBox.innerText = "Login failed. Please try again";
-}
-
-if(params.get("logout") === "1"){
-
-    errorBox.style.display = "block";
-    errorBox.classList.add("success");
-    errorBox.innerText = "Logged out successfully";
-}
-
-function showError(msg){
-
-    errorBox.style.display = "block";
-    errorBox.classList.add("error");
-    errorBox.innerText = msg;
 }
 
 </script>
 
+
 </body>
+
 </html>
